@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSupabase, isSupabaseConfigured } from '@/lib/supabase';
 
-export const runtime = 'edge';
-
 // Simple in-memory rate limiter (per-IP, resets on deploy)
 const rateMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT = 5; // max requests

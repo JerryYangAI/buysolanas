@@ -1,15 +1,19 @@
-# Deploying buysolanas.com to Cloudflare Pages
+# Deploying buysolanas.com to Cloudflare Workers
 
 ## Prerequisites
 
 - Node.js 18+
 - npm 9+
-- Wrangler CLI (`npm i -g wrangler`)
-- Cloudflare account with Pages enabled
+- Wrangler CLI (included as devDependency)
+- Cloudflare account
+
+## Architecture
+
+This project uses **@opennextjs/cloudflare** (OpenNext) to deploy Next.js to Cloudflare Workers with full Node.js compatibility. This replaces the deprecated `@cloudflare/next-on-pages`.
 
 ## Environment Variables
 
-### Public variables (set in `wrangler.toml` → `[vars]`)
+### Public variables (set in `wrangler.jsonc` → `vars`)
 
 | Variable | Description |
 |---|---|
@@ -26,18 +30,18 @@
 Set secrets via CLI:
 
 ```bash
-npx wrangler pages secret put COINGECKO_API_KEY
+npx wrangler secret put COINGECKO_API_KEY
 ```
 
 Or set them in the Cloudflare Dashboard under:
-**Pages → buysolanas → Settings → Environment variables**
+**Workers & Pages → buysolanas → Settings → Variables and Secrets**
 
 ## Build & Deploy
 
-### Local preview
+### Local preview (Workers runtime)
 
 ```bash
-npm run pages:build && npm run preview
+npm run preview
 ```
 
 ### Deploy to production
@@ -46,7 +50,7 @@ npm run pages:build && npm run preview
 npm run deploy
 ```
 
-This runs `@cloudflare/next-on-pages` to build, then `wrangler pages deploy` to push.
+This runs `opennextjs-cloudflare build` then `opennextjs-cloudflare deploy`.
 
 ### First-time setup
 
@@ -55,28 +59,21 @@ This runs `@cloudflare/next-on-pages` to build, then `wrangler pages deploy` to 
    npx wrangler login
    ```
 
-2. Create the Pages project (first deploy):
+2. Deploy (first deploy creates the Worker):
    ```bash
    npm run deploy
    ```
-   Wrangler will prompt you to create a new project.
 
 3. Set your custom domain in the Cloudflare Dashboard:
-   **Pages → buysolanas → Custom domains → Add domain**
+   **Workers & Pages → buysolanas → Settings → Domains & Routes**
 
-## Size Constraints
+## Cloudflare Pages (Git integration)
 
-Cloudflare Pages has a **25MB deployment limit**.
+If deploying via Cloudflare Pages Git integration, set:
 
-After every build, verify:
-
-```bash
-npm run build && du -sh .next
-```
-
-- **Safe**: < 15MB
-- **Warning**: 15–20MB (review and optimize)
-- **Critical**: > 20MB (stop and reduce before deploying)
+- **Build command:** `npx opennextjs-cloudflare build`
+- **Build output directory:** `.open-next/assets`
+- **Environment variables:** Add all variables listed above
 
 ## Supabase Setup
 
