@@ -13,6 +13,4 @@
     "NEXT_PUBLIC_SUPABASE_URL": "",
     "NEXT_PUBLIC_SUPABASE_ANON_KEY": ""
   }
-  // Sensitive secrets — set via Cloudflare Dashboard or CLI:
-  //   npx wrangler secret put COINGECKO_API_KEY
 }

@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+export const runtime = 'edge';
+
 // Investment-related keywords that trigger safety interception
 const BLOCKED_PATTERNS =
   /买入|卖出|抄底|投资建议|should\s*i\s*buy|when\s*to\s*buy|buy\s*now|sell\s*now|price\s*predict|should\s*i\s*invest|预测|点位|涨到|跌到|all\s*in|逃顶|合约|杠杆|leverage|pump|dump/i;
