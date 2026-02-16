@@ -1,0 +1,13 @@
+name = "buysolanas"
+compatibility_date = "2024-12-01"
+pages_build_output_dir = ".vercel/output/static"
+
+# Public environment variables (safe to expose)
+[vars]
+NEXT_PUBLIC_BASE_URL = "https://buysolanas.com"
+NEXT_PUBLIC_SUPABASE_URL = ""
+NEXT_PUBLIC_SUPABASE_ANON_KEY = ""
+
+# Sensitive secrets — set via Cloudflare Dashboard or CLI:
+#   npx wrangler pages secret put COINGECKO_API_KEY
+#   npx wrangler pages secret put SUPABASE_SERVICE_KEY (if needed)

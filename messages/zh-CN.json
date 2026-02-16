@@ -1,0 +1,103 @@
+{
+  "common": {
+    "siteName": "Buysolanas",
+    "tagline": "安全学习 Solana",
+    "learnMore": "了解更多",
+    "getStarted": "开始学习",
+    "readMore": "阅读更多"
+  },
+  "nav": {
+    "home": "首页",
+    "start": "10分钟入门",
+    "course": "课程",
+    "glossary": "术语表",
+    "prices": "行情",
+    "ask": "提问",
+    "community": "社区"
+  },
+  "home": {
+    "heroTitle": "安全学习 Solana",
+    "heroSubtitle": "面向新手的 Solana 入门社区，10 分钟消除你对加密货币的恐惧。",
+    "heroCta": "开始学习",
+    "quickStartTitle": "10分钟入门",
+    "quickStartDesc": "快速了解 Solana 核心优势",
+    "quickStartLink": "立即开始",
+    "courseTitle": "7关课程",
+    "courseDesc": "面向新手的结构化学习路径",
+    "courseLink": "浏览课程",
+    "pricesTitle": "实时行情",
+    "pricesDesc": "Solana 实时市场数据",
+    "pricesLink": "查看行情"
+  },
+  "prices": {
+    "title": "实时行情",
+    "description": "加密货币实时市场数据，每 60 秒更新。",
+    "coin": "币种",
+    "price": "价格",
+    "change24h": "24h 涨跌",
+    "marketCap": "市值",
+    "volume": "成交量 (24h)",
+    "mockNotice": "当前为演示数据。请设置 COINGECKO_API_KEY 以获取实时行情。",
+    "lastUpdated": "数据每 60 秒刷新一次。",
+    "viewDetails": "查看详情"
+  },
+  "course": {
+    "title": "课程",
+    "description": "一步步掌握 Solana。专为新手设计的结构化学习路径。",
+    "lessonLabel": "第 {order} 课",
+    "nextLesson": "下一课",
+    "backToList": "全部课程",
+    "toc": "本页目录"
+  },
+  "glossary": {
+    "title": "术语表",
+    "description": "了解 Solana 生态中的关键术语和概念。",
+    "searchPlaceholder": "搜索术语...",
+    "backToList": "全部术语",
+    "relatedTerms": "相关术语",
+    "toc": "本页目录"
+  },
+  "ask": {
+    "title": "提交问题",
+    "description": "遇到困难了？告诉我们你的情况，我们会尽力帮助你。",
+    "walletLabel": "钱包类型",
+    "walletPlaceholder": "选择你的钱包...",
+    "walletOther": "其他",
+    "walletNone": "还没有钱包",
+    "goalLabel": "学习目标",
+    "goalPlaceholder": "例如：我想了解质押（staking）...",
+    "stuckLabel": "你遇到了什么问题？",
+    "stuckPlaceholder": "描述你遇到的问题...",
+    "submit": "提交问题",
+    "submitting": "提交中...",
+    "successMessage": "问题已提交！请在社区页面查看回复。",
+    "errorMessage": "出现了一些问题。请检查网络后重试。",
+    "rateLimited": "请求过于频繁，请稍后再试。"
+  },
+  "community": {
+    "title": "社区",
+    "description": "来自其他学习者的问题。浏览或分享你自己的问题。",
+    "askButton": "提问",
+    "empty": "暂无问题。",
+    "beFirst": "成为第一个提问的人！",
+    "goalLabel": "目标"
+  },
+  "chat": {
+    "toggle": "打开助手",
+    "title": "Solana 助手",
+    "subtitle": "向我询问 Solana、课程或术语相关的问题",
+    "placeholder": "输入关于 Solana 的问题开始对话...",
+    "inputPlaceholder": "输入你的问题...",
+    "safetyBlock": "安全提示",
+    "fallbackReply": "抱歉，无法处理该请求。请重试。",
+    "networkError": "网络错误，请重试。"
+  },
+  "disclaimer": {
+    "title": "风险声明",
+    "body": "本内容仅供教育目的，不构成财务或投资建议。加密货币投资存在重大风险。请访问 /security 了解更多信息。"
+  },
+  "footer": {
+    "copyright": "© 2024 Buysolanas.com. 保留所有权利。",
+    "disclaimer": "加密货币投资存在风险。本站仅供教育目的。"
+  }
+}

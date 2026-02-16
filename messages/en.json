@@ -1,0 +1,103 @@
+{
+  "common": {
+    "siteName": "Buysolanas",
+    "tagline": "Learn Solana, safely.",
+    "learnMore": "Learn More",
+    "getStarted": "Get Started",
+    "readMore": "Read More"
+  },
+  "nav": {
+    "home": "Home",
+    "start": "10min Start",
+    "course": "Course",
+    "glossary": "Glossary",
+    "prices": "Prices",
+    "ask": "Ask",
+    "community": "Community"
+  },
+  "home": {
+    "heroTitle": "Learn Solana, safely.",
+    "heroSubtitle": "A beginner-friendly community to understand Solana in 10 minutes.",
+    "heroCta": "Start Learning",
+    "quickStartTitle": "10min Start",
+    "quickStartDesc": "Quick introduction to Solana basics",
+    "quickStartLink": "Get Started",
+    "courseTitle": "7-Level Course",
+    "courseDesc": "Structured learning path for beginners",
+    "courseLink": "Browse Courses",
+    "pricesTitle": "Live Prices",
+    "pricesDesc": "Real-time Solana market data",
+    "pricesLink": "View Prices"
+  },
+  "prices": {
+    "title": "Live Prices",
+    "description": "Real-time cryptocurrency market data, updated every 60 seconds.",
+    "coin": "Coin",
+    "price": "Price",
+    "change24h": "24h Change",
+    "marketCap": "Market Cap",
+    "volume": "Volume (24h)",
+    "mockNotice": "Showing demo data. Set COINGECKO_API_KEY for live prices.",
+    "lastUpdated": "Data refreshes every 60 seconds.",
+    "viewDetails": "View Details"
+  },
+  "course": {
+    "title": "Course",
+    "description": "Master Solana step by step. A structured learning path designed for beginners.",
+    "lessonLabel": "Lesson",
+    "nextLesson": "Next Lesson",
+    "backToList": "All Lessons",
+    "toc": "On This Page"
+  },
+  "glossary": {
+    "title": "Glossary",
+    "description": "Key terms and concepts you need to know in the Solana ecosystem.",
+    "searchPlaceholder": "Search terms...",
+    "backToList": "All Terms",
+    "relatedTerms": "Related Terms",
+    "toc": "On This Page"
+  },
+  "ask": {
+    "title": "Ask a Question",
+    "description": "Stuck on something? Tell us about your situation and we'll try to help.",
+    "walletLabel": "Wallet Type",
+    "walletPlaceholder": "Select your wallet...",
+    "walletOther": "Other",
+    "walletNone": "No wallet yet",
+    "goalLabel": "Learning Goal",
+    "goalPlaceholder": "e.g. I want to understand staking...",
+    "stuckLabel": "What are you stuck on?",
+    "stuckPlaceholder": "Describe the problem you're facing...",
+    "submit": "Submit Question",
+    "submitting": "Submitting...",
+    "successMessage": "Question submitted! Check the community page for responses.",
+    "errorMessage": "Something went wrong. Please check your network and try again.",
+    "rateLimited": "Too many requests. Please wait a moment before trying again."
+  },
+  "community": {
+    "title": "Community",
+    "description": "Questions from fellow learners. Browse or share your own.",
+    "askButton": "Ask",
+    "empty": "No questions yet.",
+    "beFirst": "Be the first to ask a question!",
+    "goalLabel": "Goal"
+  },
+  "chat": {
+    "toggle": "Open assistant",
+    "title": "Solana Assistant",
+    "subtitle": "Ask me about Solana, courses, or terms",
+    "placeholder": "Ask a question about Solana to get started...",
+    "inputPlaceholder": "Type your question...",
+    "safetyBlock": "Safety Notice",
+    "fallbackReply": "Sorry, I couldn't process that. Try again.",
+    "networkError": "Network error. Please try again."
+  },
+  "disclaimer": {
+    "title": "Risk Disclaimer",
+    "body": "This content is for educational purposes only and does not constitute financial or investment advice. Cryptocurrency investments carry significant risk. Please consult /security for more information."
+  },
+  "footer": {
+    "copyright": "© 2024 Buysolanas.com. All rights reserved.",
+    "disclaimer": "Cryptocurrency investments carry risk. This site is for educational purposes only."
+  }
+}
