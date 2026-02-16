@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { getSupabase, isSupabaseConfigured } from '@/lib/supabase';
 
 export const runtime = 'edge';
 
@@ -70,6 +70,11 @@ export async function POST(request: NextRequest) {
   }
 
   // Insert into Supabase
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ error: 'supabase_not_configured' }, { status: 503 });
+  }
+
   const { error } = await supabase.from('questions').insert({
     wallet_type: walletType,
     goal,

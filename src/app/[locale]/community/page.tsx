@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
-import { supabase, isSupabaseConfigured } from '@/lib/supabase';
+import { getSupabase, isSupabaseConfigured } from '@/lib/supabase';
 import type { Question } from '@/lib/supabase';
 import { Link } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
@@ -33,7 +33,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 async function getQuestions(): Promise<Question[]> {
-  if (!isSupabaseConfigured()) return [];
+  const supabase = getSupabase();
+  if (!supabase) return [];
 
   const { data, error } = await supabase
     .from('questions')
