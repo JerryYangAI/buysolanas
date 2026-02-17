@@ -8,10 +8,10 @@ import { Menu, X } from 'lucide-react';
 import { routing } from '@/i18n/routing';
 
 const navItems = [
+  { key: 'prices', href: '/prices' },
   { key: 'start', href: '/start' },
   { key: 'course', href: '/course' },
   { key: 'glossary', href: '/glossary' },
-  { key: 'prices', href: '/prices' },
   { key: 'community', href: '/community' },
 ] as const;
 
@@ -25,19 +25,19 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-foreground-tertiary/20 bg-background/80 backdrop-blur-md">
       <div className="container-custom">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="text-xl font-bold tracking-tight">
+          <Link href="/" className="text-2xl font-bold tracking-tight">
             Buysolanas
           </Link>
 
           {/* Desktop navigation */}
-          <nav className="hidden items-center gap-8 md:flex">
+          <nav className="hidden items-center gap-10 md:flex">
             {navItems.map((item) => (
               <Link
                 key={item.key}
                 href={item.href}
-                className={`text-sm transition-colors ${
+                className={`text-xl transition-colors ${
                   pathname === item.href
                     ? 'text-foreground'
                     : 'text-foreground-secondary hover:text-foreground'
@@ -56,7 +56,7 @@ export default function Header() {
                   key={locale}
                   href={pathname || '/'}
                   locale={locale}
-                  className={`rounded px-2 py-1 text-xs transition-colors ${
+                  className={`rounded px-2 py-1 text-sm transition-colors ${
                     locale === currentLocale
                       ? 'bg-foreground text-background'
                       : 'text-foreground-secondary hover:text-foreground'
@@ -86,7 +86,7 @@ export default function Header() {
                 key={item.key}
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
-                className={`block py-3 text-sm transition-colors ${
+                className={`block py-3 text-xl transition-colors ${
                   pathname === item.href
                     ? 'text-foreground'
                     : 'text-foreground-secondary hover:text-foreground'

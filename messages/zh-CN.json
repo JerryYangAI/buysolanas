@@ -39,7 +39,14 @@
     "volume": "成交量 (24h)",
     "mockNotice": "当前为演示数据。请设置 COINGECKO_API_KEY 以获取实时行情。",
     "lastUpdated": "数据每 60 秒刷新一次。",
-    "viewDetails": "查看详情"
+    "viewDetails": "查看详情",
+    "globalMarketCap": "总市值",
+    "globalVolume24h": "24h 成交额",
+    "btcDominance": "BTC 占比",
+    "rank": "#",
+    "change1h": "1h",
+    "change7d": "7d",
+    "sparkline": "7日走势"
   },
   "course": {
     "title": "课程",

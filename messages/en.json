@@ -39,7 +39,14 @@
     "volume": "Volume (24h)",
     "mockNotice": "Showing demo data. Set COINGECKO_API_KEY for live prices.",
     "lastUpdated": "Data refreshes every 60 seconds.",
-    "viewDetails": "View Details"
+    "viewDetails": "View Details",
+    "globalMarketCap": "Market Cap",
+    "globalVolume24h": "24h Volume",
+    "btcDominance": "BTC Dominance",
+    "rank": "#",
+    "change1h": "1h",
+    "change7d": "7d",
+    "sparkline": "7d Chart"
   },
   "course": {
     "title": "Course",
