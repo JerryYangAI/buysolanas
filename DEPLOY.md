@@ -67,13 +67,23 @@ This runs `opennextjs-cloudflare build` then `opennextjs-cloudflare deploy`.
 3. Set your custom domain in the Cloudflare Dashboard:
    **Workers & Pages → buysolanas → Settings → Domains & Routes**
 
-## Cloudflare Pages (Git integration)
+## Cloudflare Workers Builds (Git integration)
 
-If deploying via Cloudflare Pages Git integration, set:
+> **Important:** This project uses `@opennextjs/cloudflare` which deploys to **Cloudflare Workers**, NOT Cloudflare Pages. Do not create a Pages project — it will result in 404 errors because Pages cannot serve the Worker bundle.
 
-- **Build command:** `npx opennextjs-cloudflare build`
-- **Build output directory:** `.open-next/assets`
-- **Environment variables:** Add all variables listed above
+To deploy via Git integration (auto-deploy on push):
+
+1. Go to **Cloudflare Dashboard → Workers & Pages → Create**
+2. Select **"Import a repository"** and connect your GitHub repo
+3. Configure build settings:
+   - **Build command:** `npx opennextjs-cloudflare build`
+   - **Deploy command:** `npx wrangler deploy`
+   - **Build output directory:** (leave empty — Wrangler handles this)
+4. Set environment variables in **Settings → Variables and Secrets**:
+   - Add all `NEXT_PUBLIC_*` variables listed above
+   - Add `COINGECKO_API_KEY` as a secret
+5. Ensure **Settings → Runtime → Compatibility flags** includes `nodejs_compat`
+6. Ensure **Settings → Runtime → Compatibility date** is `2025-12-01` or later
 
 ## Supabase Setup
 
