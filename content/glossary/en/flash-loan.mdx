@@ -1,0 +1,19 @@
+---
+title: "Flash Loan"
+description: "An uncollateralized loan that must be borrowed and repaid within a single blockchain transaction."
+category: "defi"
+order: 24
+related: ["defi", "smart-contract-audit", "dex", "slippage"]
+---
+
+## Flash Loan
+
+A **flash loan** is a unique type of DeFi loan that allows you to borrow any amount of cryptocurrency without collateral, as long as you repay it within the same transaction. If the loan is not repaid by the end of the transaction, the entire operation is automatically reversed as if it never happened.
+
+### How It Works
+
+Flash loans exploit the atomic nature of blockchain transactions — a transaction either fully succeeds or fully fails, with nothing in between. A user can borrow millions of dollars, use the funds for arbitrage, liquidations, or collateral swaps across multiple protocols, and repay the loan plus a small fee — all in a single transaction that takes less than a second on Solana.
+
+### Why It Matters
+
+Flash loans are a powerful DeFi tool that enables complex financial strategies without requiring significant capital. They are commonly used for arbitrage (exploiting price differences between exchanges), self-liquidation (closing risky loan positions), and collateral swaps. However, flash loans have also been used in exploits and attacks on vulnerable DeFi protocols, making smart contract security more important than ever.
