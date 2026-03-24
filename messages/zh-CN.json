@@ -107,8 +107,23 @@
     "sparkline": "7日走势"
   },
   "course": {
-    "title": "课程",
-    "description": "一步步掌握 Solana。专为新手设计的结构化学习路径。",
+    "label": "学习路径",
+    "title": "Solana 课程",
+    "description": "一步步掌握 Solana。三级结构化学习路径，从入门到进阶，适合所有阶段的学习者。",
+    "totalLessons": "课程总数",
+    "estimatedTime": "约 2 小时",
+    "readingTime": "总阅读时间",
+    "levels": "难度等级",
+    "level1Title": "Level 1 — 入门基础",
+    "level1Desc": "从零认知到创建第一个 Solana 钱包",
+    "level1Tag": "新手友好",
+    "level2Title": "Level 2 — 生态探索",
+    "level2Desc": "DeFi、NFT、Staking 深入了解",
+    "level2Tag": "中级",
+    "level3Title": "Level 3 — 高级策略",
+    "level3Desc": "流动性挖矿、链上分析、开发入门",
+    "level3Tag": "进阶",
+    "comingSoon": "更多课程即将上线...",
     "lessonLabel": "第 {order} 课",
     "nextLesson": "下一课",
     "backToList": "全部课程",
@@ -213,6 +228,16 @@
     "submitting": "发送中...",
     "successMessage": "询价已发送！我们将在 24 小时内回复。",
     "errorMessage": "发送失败，请重试。"
+  },
+  "newsletter": {
+    "cardTitle": "订阅每周更新",
+    "cardDesc": "每周获取 Solana 生态更新、新课程和市场洞察，直达你的邮箱。",
+    "footerTitle": "邮件订阅",
+    "footerDesc": "每周 Solana 精选推送。",
+    "placeholder": "your@email.com",
+    "subscribe": "订阅",
+    "success": "订阅成功！请查收确认邮件。",
+    "error": "出现了问题，请重试。"
   },
   "footer": {
     "brandDesc": "中文 Solana 教育与信息平台。帮助华人用户从零理解、安全参与 Solana 生态。",

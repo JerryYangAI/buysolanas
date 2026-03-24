@@ -1,0 +1,19 @@
+---
+title: "Clockwork（时钟协议）"
+description: "Solana 上的自动化引擎，允许开发者在指定时间或间隔调度交易和触发链上操作。"
+category: "solana"
+order: 51
+related: ["solana", "smart-contract-audit", "validator"]
+---
+
+## Clockwork（时钟协议）
+
+**Clockwork** 是建立在 Solana 上的自动化协议，使开发者能够调度重复性交易并在指定时间或条件下触发智能合约函数，类似于传统计算中的定时任务（cron jobs）。
+
+### 工作原理
+
+Clockwork 使用工作节点网络来监控区块链，并在条件满足时执行预定任务。开发者创建"线程"来定义执行什么操作以及何时执行。这些线程自主运行，支持自动代币分发、定期再平衡和基于时间的治理操作等用例。
+
+### 为什么重要
+
+没有 Clockwork 这样的自动化工具，开发者需要依赖中心化服务器来触发链上交易，这违背了去中心化的初衷。Clockwork 为 Solana 带来了无需信任的自动化，使协议能够在无人干预的情况下执行复杂逻辑。

@@ -107,8 +107,23 @@
     "sparkline": "7d Chart"
   },
   "course": {
-    "title": "Course",
-    "description": "Master Solana step by step. A structured learning path designed for beginners.",
+    "label": "LEARNING PATH",
+    "title": "Solana Courses",
+    "description": "Master Solana step by step. A structured 3-level learning path from beginner to advanced, designed for everyone.",
+    "totalLessons": "Total Lessons",
+    "estimatedTime": "~2 hours",
+    "readingTime": "Total Reading Time",
+    "levels": "Difficulty Levels",
+    "level1Title": "Level 1 — Beginner Basics",
+    "level1Desc": "From zero knowledge to your first Solana wallet",
+    "level1Tag": "Beginner",
+    "level2Title": "Level 2 — Ecosystem Explorer",
+    "level2Desc": "DeFi, NFTs, Staking, and more",
+    "level2Tag": "Intermediate",
+    "level3Title": "Level 3 — Advanced Strategy",
+    "level3Desc": "Liquidity mining, on-chain analysis, development",
+    "level3Tag": "Advanced",
+    "comingSoon": "More lessons coming soon...",
     "lessonLabel": "Lesson",
     "nextLesson": "Next Lesson",
     "backToList": "All Lessons",
@@ -213,6 +228,16 @@
     "submitting": "Sending...",
     "successMessage": "Inquiry sent! We'll respond within 24 hours.",
     "errorMessage": "Something went wrong. Please try again."
+  },
+  "newsletter": {
+    "cardTitle": "Subscribe to Weekly Updates",
+    "cardDesc": "Get weekly Solana ecosystem updates, new lessons, and market insights delivered to your inbox.",
+    "footerTitle": "Newsletter",
+    "footerDesc": "Weekly Solana updates in your inbox.",
+    "placeholder": "your@email.com",
+    "subscribe": "Subscribe",
+    "success": "Subscribed! Check your inbox.",
+    "error": "Something went wrong. Please try again."
   },
   "footer": {
     "brandDesc": "The Chinese Solana education and information platform. Helping users understand and safely participate in the Solana ecosystem.",

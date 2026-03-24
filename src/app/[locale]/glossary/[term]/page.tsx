@@ -93,7 +93,7 @@ export default async function GlossaryTermPage({ params }: Props) {
         <article className="min-w-0 flex-1">
           <header className="mb-8">
             {item.meta.category && (
-              <span className="mb-2 inline-block rounded bg-background-tertiary px-2 py-0.5 text-xs text-foreground-tertiary">
+              <span className="mb-2 inline-block rounded-md border border-sol-purple/20 bg-sol-purple/10 px-2.5 py-0.5 text-xs font-medium capitalize text-sol-purple">
                 {item.meta.category}
               </span>
             )}
@@ -111,7 +111,7 @@ export default async function GlossaryTermPage({ params }: Props) {
 
           {/* Related terms */}
           {item.meta.related && item.meta.related.length > 0 && (
-            <div className="mt-10 border-t border-foreground-tertiary/20 pt-6">
+            <div className="mt-10 border-t border-[var(--color-glass-border)] pt-6">
               <p className="mb-3 text-xs font-medium uppercase tracking-wider text-foreground-tertiary">
                 {t('relatedTerms')}
               </p>
@@ -120,9 +120,9 @@ export default async function GlossaryTermPage({ params }: Props) {
                   <Link
                     key={slug}
                     href={`/glossary/${slug}`}
-                    className="rounded-sm border border-foreground-tertiary/20 px-3 py-1.5 text-sm text-foreground-secondary transition-colors hover:border-foreground-tertiary/40 hover:text-foreground"
+                    className="glass-card px-3 py-1.5 text-sm text-foreground-secondary transition-all hover:border-sol-purple/30 hover:text-foreground"
                   >
-                    {slug}
+                    {slug.replace(/-/g, ' ')}
                   </Link>
                 ))}
               </div>

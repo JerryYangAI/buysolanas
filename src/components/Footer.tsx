@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { ALL_DOMAINS } from '@/lib/domain-config';
+import NewsletterForm from '@/components/NewsletterForm';
 
 export default function Footer() {
   const t = useTranslations('footer');
@@ -45,13 +46,16 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* About */}
+          {/* Newsletter + About */}
           <div>
-            <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.08em] text-foreground-secondary">{t('colAbout')}</h4>
-            <ul className="space-y-2.5">
-              <li><span className="text-[13px] text-foreground-secondary">{t('linkDisclaimer')}</span></li>
-              <li><span className="text-[13px] text-foreground-secondary">{t('linkPrivacy')}</span></li>
-            </ul>
+            <NewsletterForm variant="inline" />
+            <div className="mt-6">
+              <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.08em] text-foreground-secondary">{t('colAbout')}</h4>
+              <ul className="space-y-2">
+                <li><span className="text-[13px] text-foreground-secondary">{t('linkDisclaimer')}</span></li>
+                <li><span className="text-[13px] text-foreground-secondary">{t('linkPrivacy')}</span></li>
+              </ul>
+            </div>
           </div>
         </div>
 
