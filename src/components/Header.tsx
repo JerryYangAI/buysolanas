@@ -13,6 +13,7 @@ const navItems = [
   { key: 'course', href: '/course' },
   { key: 'glossary', href: '/glossary' },
   { key: 'community', href: '/community' },
+  { key: 'domains', href: '/domains' },
 ] as const;
 
 export default function Header() {

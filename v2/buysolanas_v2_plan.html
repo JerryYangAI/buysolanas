@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuySolanas V2.0 — 详细设计方案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Sora:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07080F;
+  --bg2: #0D0E1A;
+  --bg3: #131425;
+  --card: #10111E;
+  --card2: #181929;
+  --border: rgba(120,120,200,0.12);
+  --border2: rgba(120,120,200,0.22);
+  --purple: #8B5CF6;
+  --purple-light: #A78BFA;
+  --green: #10B981;
+  --green-light: #34D399;
+  --blue: #3B82F6;
+  --amber: #F59E0B;
+  --red: #EF4444;
+  --text: #E8E8F0;
+  --text2: #9090B0;
+  --text3: #5050708;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'Sora', sans-serif;
+  --zh: 'Noto Sans SC', sans-serif;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--zh);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ── LAYOUT ── */
+.layout { display: flex; min-height: 100vh; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 260px; flex-shrink: 0;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  position: sticky; top: 0; height: 100vh;
+  overflow-y: auto; padding: 28px 0;
+}
+.sidebar-logo {
+  font-family: var(--mono);
+  font-size: 15px; font-weight: 600;
+  padding: 0 24px 24px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.logo-main { color: var(--purple-light); }
+.logo-tag {
+  display: block; font-size: 11px; font-weight: 400;
+  color: var(--text2); margin-top: 2px; letter-spacing: 0.05em;
+}
+.nav-section { padding: 8px 24px 4px; }
+.nav-section-label {
+  font-size: 10px; font-weight: 600; color: var(--text2);
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 10px; border-radius: var(--radius-sm);
+  font-size: 13px; color: var(--text2);
+  cursor: pointer; transition: all 0.15s;
+  text-decoration: none;
+  margin-bottom: 2px;
+}
+.nav-item:hover { background: var(--bg3); color: var(--text); }
+.nav-item.active { background: rgba(139,92,246,0.15); color: var(--purple-light); }
+.nav-icon { width: 16px; text-align: center; font-size: 13px; }
+.nav-badge {
+  margin-left: auto; font-size: 10px; font-family: var(--mono);
+  background: var(--bg3); padding: 1px 6px; border-radius: 10px;
+  color: var(--text2);
+}
+.nav-badge.hot { background: rgba(239,68,68,0.15); color: #FCA5A5; }
+
+/* ── MAIN ── */
+.main { flex: 1; min-width: 0; padding: 48px 52px; max-width: 900px; }
+
+/* ── HEADER ── */
+.doc-header { margin-bottom: 52px; }
+.doc-meta {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+}
+.meta-chip {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  padding: 3px 10px; border-radius: 4px;
+}
+.chip-version { background: rgba(139,92,246,0.15); color: var(--purple-light); border: 1px solid rgba(139,92,246,0.25); }
+.chip-date { background: var(--bg3); color: var(--text2); }
+.chip-status { background: rgba(16,185,129,0.12); color: var(--green-light); border: 1px solid rgba(16,185,129,0.2); }
+.doc-title {
+  font-family: var(--sans);
+  font-size: 38px; font-weight: 700;
+  line-height: 1.1; letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+.doc-title .g {
+  background: linear-gradient(105deg, var(--purple-light) 0%, #60A5FA 50%, var(--green-light) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.doc-desc { font-size: 16px; color: var(--text2); max-width: 560px; line-height: 1.7; }
+.doc-stats {
+  display: flex; gap: 28px; margin-top: 28px;
+  padding-top: 28px; border-top: 1px solid var(--border);
+}
+.stat { font-size: 13px; }
+.stat-n { font-family: var(--mono); font-size: 22px; font-weight: 600; color: var(--text); display: block; }
+.stat-l { color: var(--text2); margin-top: 2px; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 64px; scroll-margin-top: 32px; }
+.section-header { margin-bottom: 28px; }
+.section-eyebrow {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  color: var(--purple); letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: var(--sans); font-size: 26px; font-weight: 700;
+  letter-spacing: -0.02em; margin-bottom: 10px;
+}
+.section-desc { font-size: 14px; color: var(--text2); max-width: 560px; }
+
+/* ── STRATEGY CARDS ── */
+.strategy-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 20px; overflow: hidden;
+}
+.strategy-header {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 24px 28px; cursor: pointer;
+  transition: background 0.15s;
+}
+.strategy-header:hover { background: rgba(255,255,255,0.02); }
+.strategy-num {
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  color: var(--text2); background: var(--bg3);
+  width: 28px; height: 28px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+}
+.strategy-info { flex: 1; }
+.strategy-title { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+.strategy-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag {
+  font-family: var(--mono); font-size: 10px; font-weight: 500;
+  padding: 2px 8px; border-radius: 4px;
+}
+.tag-impact { background: rgba(16,185,129,0.12); color: var(--green-light); }
+.tag-effort { background: rgba(245,158,11,0.12); color: #FCD34D; }
+.tag-time { background: rgba(59,130,246,0.12); color: #93C5FD; }
+.tag-priority { background: rgba(239,68,68,0.12); color: #FCA5A5; }
+.strategy-chevron {
+  color: var(--text2); transition: transform 0.2s;
+  font-size: 14px; margin-top: 4px;
+}
+.strategy-card.open .strategy-chevron { transform: rotate(180deg); }
+.strategy-body {
+  display: none; padding: 0 28px 28px;
+  border-top: 1px solid var(--border);
+}
+.strategy-card.open .strategy-body { display: block; }
+.strategy-body-inner { padding-top: 24px; }
+
+/* ── SPEC BLOCKS ── */
+.spec-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-bottom: 20px;
+}
+.spec-block {
+  background: var(--bg3); border-radius: var(--radius-sm);
+  padding: 16px; border: 1px solid var(--border);
+}
+.spec-block-title {
+  font-size: 11px; font-weight: 600; color: var(--text2);
+  text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;
+}
+.spec-list { list-style: none; }
+.spec-list li {
+  font-size: 13px; color: var(--text); padding: 4px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.spec-list li:last-child { border-bottom: none; }
+.spec-list li::before { content: '→'; color: var(--purple); flex-shrink: 0; margin-top: 1px; }
+
+.code-block {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 16px;
+  font-family: var(--mono); font-size: 12px;
+  color: #A8B4E8; overflow-x: auto; margin: 12px 0;
+  line-height: 1.7;
+}
+.code-block .kw { color: #C084FC; }
+.code-block .str { color: #86EFAC; }
+.code-block .fn { color: #67E8F9; }
+.code-block .cm { color: #4B5563; }
+.code-block .num { color: #FCD34D; }
+
+.callout {
+  border-left: 3px solid var(--purple);
+  background: rgba(139,92,246,0.06);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 14px 16px; margin: 16px 0;
+}
+.callout.green { border-color: var(--green); background: rgba(16,185,129,0.06); }
+.callout.amber { border-color: var(--amber); background: rgba(245,158,11,0.06); }
+.callout-title { font-size: 12px; font-weight: 600; color: var(--purple-light); margin-bottom: 4px; }
+.callout.green .callout-title { color: var(--green-light); }
+.callout.amber .callout-title { color: #FCD34D; }
+.callout-text { font-size: 13px; color: var(--text2); }
+
+/* ── ROADMAP ── */
+.roadmap { position: relative; }
+.roadmap::before {
+  content: ''; position: absolute; left: 18px; top: 0; bottom: 0;
+  width: 1px; background: var(--border);
+}
+.roadmap-phase { position: relative; padding-left: 52px; margin-bottom: 36px; }
+.roadmap-dot {
+  position: absolute; left: 10px; top: 4px;
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--bg); display: flex; align-items: center; justify-content: center;
+}
+.roadmap-dot.active { border-color: var(--purple); background: rgba(139,92,246,0.2); }
+.roadmap-dot.done { border-color: var(--green); background: rgba(16,185,129,0.15); }
+.roadmap-dot-inner {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--text2);
+}
+.roadmap-dot.active .roadmap-dot-inner { background: var(--purple-light); }
+.roadmap-dot.done .roadmap-dot-inner { background: var(--green-light); }
+.phase-label {
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  color: var(--text2); margin-bottom: 8px; letter-spacing: 0.05em;
+}
+.phase-title { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+.phase-desc { font-size: 13px; color: var(--text2); margin-bottom: 16px; }
+.task-list { display: flex; flex-direction: column; gap: 8px; }
+.task-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 12px 14px;
+}
+.task-check {
+  width: 18px; height: 18px; border-radius: 4px;
+  border: 1.5px solid var(--border2); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px; font-size: 10px;
+}
+.task-check.done { background: rgba(16,185,129,0.15); border-color: var(--green); color: var(--green-light); }
+.task-check.active { border-color: var(--purple); }
+.task-name { font-size: 13px; font-weight: 500; flex: 1; }
+.task-meta { display: flex; gap: 6px; flex-shrink: 0; }
+.task-t {
+  font-family: var(--mono); font-size: 10px;
+  padding: 2px 7px; border-radius: 4px;
+  background: var(--bg3); color: var(--text2);
+}
+
+/* ── FEATURE SPEC TABLE ── */
+.feature-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.feature-table th {
+  text-align: left; padding: 10px 14px;
+  background: var(--bg3); color: var(--text2);
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.06em; border-bottom: 1px solid var(--border);
+}
+.feature-table td {
+  padding: 10px 14px; border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.feature-table tr:last-child td { border-bottom: none; }
+.feature-table tr:hover td { background: rgba(255,255,255,0.015); }
+.dot-high { color: var(--red); }
+.dot-med { color: var(--amber); }
+.dot-low { color: var(--green); }
+
+/* ── API DESIGN ── */
+.api-endpoint {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); margin-bottom: 12px; overflow: hidden;
+}
+.api-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; background: var(--card);
+  border-bottom: 1px solid var(--border);
+}
+.method-badge {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  padding: 2px 8px; border-radius: 4px;
+}
+.method-get { background: rgba(16,185,129,0.15); color: var(--green-light); }
+.method-post { background: rgba(59,130,246,0.15); color: #93C5FD; }
+.api-path { font-family: var(--mono); font-size: 13px; color: var(--text); }
+.api-desc { font-size: 12px; color: var(--text2); margin-left: auto; }
+.api-body { padding: 12px 14px; }
+
+/* ── GLOSSARY SCHEMA ── */
+.schema-row {
+  display: grid; grid-template-columns: 160px 80px 1fr;
+  gap: 12px; padding: 8px 0;
+  border-bottom: 1px solid var(--border); font-size: 13px;
+}
+.schema-row:last-child { border-bottom: none; }
+.schema-field { font-family: var(--mono); color: var(--purple-light); }
+.schema-type { font-family: var(--mono); color: #FCD34D; font-size: 11px; }
+.schema-desc { color: var(--text2); }
+
+/* ── METRIC CARDS ── */
+.metrics-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+.metric-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 16px;
+}
+.metric-val {
+  font-family: var(--mono); font-size: 26px; font-weight: 600;
+  color: var(--text); line-height: 1;
+}
+.metric-label { font-size: 12px; color: var(--text2); margin-top: 4px; }
+.metric-trend {
+  font-family: var(--mono); font-size: 11px; margin-top: 6px;
+}
+.trend-up { color: var(--green-light); }
+.trend-plan { color: var(--purple-light); }
+
+/* ── TECH STACK ── */
+.stack-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.stack-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 16px;
+}
+.stack-layer { font-size: 10px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+.stack-items { display: flex; flex-direction: column; gap: 6px; }
+.stack-item { display: flex; align-items: center; gap: 8px; }
+.stack-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.stack-name { font-size: 13px; }
+.stack-note { font-size: 11px; color: var(--text2); margin-left: auto; }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .main { padding: 28px 20px; }
+  .spec-grid { grid-template-columns: 1fr; }
+  .metrics-row { grid-template-columns: repeat(2, 1fr); }
+  .stack-grid { grid-template-columns: 1fr; }
+  .schema-row { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.section { animation: fadeUp 0.4s ease both; }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <span class="logo-main">BuySolanas</span>
+    <span class="logo-tag">V2.0 设计方案文档</span>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">概览</div>
+    <a href="#overview" class="nav-item active"><span class="nav-icon">◈</span> 项目概述</a>
+    <a href="#metrics" class="nav-item"><span class="nav-icon">◎</span> 目标指标</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">五大核心策略</div>
+    <a href="#s1" class="nav-item"><span class="nav-icon">①</span> 实时行情 Ticker <span class="nav-badge hot">P0</span></a>
+    <a href="#s2" class="nav-item"><span class="nav-icon">②</span> 词汇表系统 <span class="nav-badge hot">P1</span></a>
+    <a href="#s3" class="nav-item"><span class="nav-icon">③</span> 学习课程体系 <span class="nav-badge">P2</span></a>
+    <a href="#s4" class="nav-item"><span class="nav-icon">④</span> Newsletter <span class="nav-badge">P3</span></a>
+    <a href="#s5" class="nav-item"><span class="nav-icon">⑤</span> 社区积分系统 <span class="nav-badge">P4</span></a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">开发路线图</div>
+    <a href="#roadmap" class="nav-item"><span class="nav-icon">▸</span> 四阶段路线图</a>
+    <a href="#tech" class="nav-item"><span class="nav-icon">▸</span> 技术栈选型</a>
+    <a href="#api" class="nav-item"><span class="nav-icon">▸</span> API 设计规范</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">附录</div>
+    <a href="#seo" class="nav-item"><span class="nav-icon">▸</span> SEO 策略</a>
+    <a href="#kpi" class="nav-item"><span class="nav-icon">▸</span> KPI 追踪</a>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+<!-- ── HEADER ── -->
+<div class="doc-header" id="overview">
+  <div class="doc-meta">
+    <span class="meta-chip chip-version">v2.0.0</span>
+    <span class="meta-chip chip-date">2025年 Q2–Q3</span>
+    <span class="meta-chip chip-status">● 规划中</span>
+  </div>
+  <h1 class="doc-title">BuySolanas.com<br><span class="g">V2.0 详细设计方案</span></h1>
+  <p class="doc-desc">基于五大核心策略，打造中文圈最权威的 Solana 教育与信息平台。本文档涵盖每个功能模块的详细实现方案、技术规格、开发路线图与成功指标。</p>
+  <div class="doc-stats">
+    <div class="stat"><span class="stat-n">5</span><span class="stat-l">核心策略</span></div>
+    <div class="stat"><span class="stat-n">4</span><span class="stat-l">开发阶段</span></div>
+    <div class="stat"><span class="stat-n">~16周</span><span class="stat-l">预计工期</span></div>
+    <div class="stat"><span class="stat-n">20+</span><span class="stat-l">功能模块</span></div>
+  </div>
+</div>
+
+<!-- ── METRICS ── -->
+<section class="section" id="metrics">
+  <div class="section-header">
+    <div class="section-eyebrow">目标指标</div>
+    <h2 class="section-title">V2.0 成功定义</h2>
+    <p class="section-desc">以下是 V2.0 上线后 6 个月内的目标数字，作为开发优先级的决策依据。</p>
+  </div>
+  <div class="metrics-row">
+    <div class="metric-card">
+      <div class="metric-val">50K</div>
+      <div class="metric-label">月独立访客 (MAU)</div>
+      <div class="metric-trend trend-plan">目标 6 个月后</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">5K</div>
+      <div class="metric-label">Newsletter 订阅</div>
+      <div class="metric-trend trend-plan">目标 3 个月后</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">200+</div>
+      <div class="metric-label">词汇词条数量</div>
+      <div class="metric-trend trend-plan">上线时达到</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">8min</div>
+      <div class="metric-label">平均停留时长</div>
+      <div class="metric-trend trend-plan">目标（现约 1-2min）</div>
+    </div>
+  </div>
+  <div class="callout green">
+    <div class="callout-title">核心逻辑</div>
+    <div class="callout-text">流量获取靠 SEO（词汇表 + 课程内容）→ 用户留存靠 Newsletter → 变现靠合作伙伴/广告 → 社区壁垒靠积分系统。每个策略都服务于这条增长飞轮。</div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── STRATEGY 1 ── -->
+<section class="section" id="s1">
+  <div class="section-header">
+    <div class="section-eyebrow">策略 01 / 五大核心</div>
+    <h2 class="section-title">实时行情 Ticker</h2>
+    <p class="section-desc">参照 CoinGecko 顶部价格 bar，接入实时 SOL 数据，让用户每次访问都能看到最新行情，提升网站的"活跃感"与可信度。</p>
+  </div>
+
+  <div class="strategy-card open" id="s1-card">
+    <div class="strategy-header" onclick="toggle('s1-card')">
+      <div class="strategy-num">01</div>
+      <div class="strategy-info">
+        <div class="strategy-title">SOL 实时行情 + 生态数据看板</div>
+        <div class="strategy-tags">
+          <span class="tag tag-impact">高影响</span>
+          <span class="tag tag-effort">低开发量</span>
+          <span class="tag tag-time">2–3 周</span>
+          <span class="tag tag-priority">P0 优先</span>
+        </div>
+      </div>
+      <div class="strategy-chevron">▼</div>
+    </div>
+    <div class="strategy-body">
+      <div class="strategy-body-inner">
+
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">Ticker Bar 显示字段</div>
+            <ul class="spec-list">
+              <li>SOL/USDT 实时价格</li>
+              <li>24h 涨跌幅（颜色区分）</li>
+              <li>24h 交易量</li>
+              <li>市值（Market Cap）</li>
+              <li>Solana TPS 实时值</li>
+              <li>全球加密市值总量</li>
+            </ul>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">行情详情页内容</div>
+            <ul class="spec-list">
+              <li>K线图（1D/7D/1M/1Y）</li>
+              <li>持仓地址数量趋势</li>
+              <li>SOL 生态 Top 10 代币</li>
+              <li>质押 APY 实时数据</li>
+              <li>Solana 验证节点数</li>
+              <li>历史价格与关键事件</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout amber">
+          <div class="callout-title">数据来源方案</div>
+          <div class="callout-text">首选 CoinGecko Free API（每分钟 30 次调用，免费），备选 Birdeye API（Solana 专属链上数据）。生产环境建议在后端做缓存，每 30 秒刷新一次，避免前端直接调用导致限流。</div>
+        </div>
+
+        <div class="code-block"><span class="cm">// CoinGecko API 调用示例（Python 后端缓存层）</span>
+<span class="kw">import</span> requests, redis, json
+
+<span class="kw">def</span> <span class="fn">get_sol_price</span>():
+    r = redis.Redis()
+    cached = r.get(<span class="str">'sol_price'</span>)
+    <span class="kw">if</span> cached:
+        <span class="kw">return</span> json.loads(cached)
+
+    url = <span class="str">"https://api.coingecko.com/api/v3/simple/price"</span>
+    params = {
+        <span class="str">"ids"</span>: <span class="str">"solana"</span>,
+        <span class="str">"vs_currencies"</span>: <span class="str">"usd,cny"</span>,
+        <span class="str">"include_24hr_change"</span>: <span class="str">"true"</span>,
+        <span class="str">"include_market_cap"</span>: <span class="str">"true"</span>,
+        <span class="str">"include_24hr_vol"</span>: <span class="str">"true"</span>
+    }
+    data = requests.get(url, params=params).json()
+    r.setex(<span class="str">'sol_price'</span>, <span class="num">30</span>, json.dumps(data))  <span class="cm"># 缓存 30 秒</span>
+    <span class="kw">return</span> data</div>
+
+        <div class="spec-block" style="margin-top:16px">
+          <div class="spec-block-title">前端实现要点</div>
+          <ul class="spec-list">
+            <li>Ticker bar 固定在 nav 下方，sticky 定位</li>
+            <li>价格涨跌用绿色/红色 + 上下箭头区分</li>
+            <li>每 30 秒轮询 /api/sol-price，无刷新更新</li>
+            <li>移动端折叠为仅显示 SOL 价格 + 涨跌幅</li>
+            <li>点击 Ticker 跳转至行情详情页</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STRATEGY 2 ── -->
+<section class="section" id="s2">
+  <div class="section-header">
+    <div class="section-eyebrow">策略 02 / 五大核心</div>
+    <h2 class="section-title">加密货币词汇表系统</h2>
+    <p class="section-desc">词汇表是获取 SEO 流量最快的方式。每一个词条都是一个可被搜索引擎索引的独立页面，"XXX是什么意思" 类长尾词流量极大。</p>
+  </div>
+
+  <div class="strategy-card" id="s2-card">
+    <div class="strategy-header" onclick="toggle('s2-card')">
+      <div class="strategy-num">02</div>
+      <div class="strategy-info">
+        <div class="strategy-title">200+ 词条 · A-Z 索引 · SEO 优化词汇表</div>
+        <div class="strategy-tags">
+          <span class="tag tag-impact">极高 SEO</span>
+          <span class="tag tag-effort">低开发量</span>
+          <span class="tag tag-time">1–2 周</span>
+          <span class="tag tag-priority">P1 优先</span>
+        </div>
+      </div>
+      <div class="strategy-chevron">▼</div>
+    </div>
+    <div class="strategy-body">
+      <div class="strategy-body-inner">
+
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">词条数据结构</div>
+            <div class="schema-row" style="font-size:11px; font-weight:600; color:var(--text2); padding-bottom:6px;">
+              <span>字段名</span><span>类型</span><span>说明</span>
+            </div>
+            <div class="schema-row"><span class="schema-field">term</span><span class="schema-type">string</span><span class="schema-desc">词条名（英文）</span></div>
+            <div class="schema-row"><span class="schema-field">term_zh</span><span class="schema-type">string</span><span class="schema-desc">词条名（中文）</span></div>
+            <div class="schema-row"><span class="schema-field">definition</span><span class="schema-type">text</span><span class="schema-desc">200字以内简明解释</span></div>
+            <div class="schema-row"><span class="schema-field">example</span><span class="schema-type">text</span><span class="schema-desc">实际使用场景举例</span></div>
+            <div class="schema-row"><span class="schema-field">category</span><span class="schema-type">enum</span><span class="schema-desc">DeFi/NFT/Security/...</span></div>
+            <div class="schema-row"><span class="schema-field">related</span><span class="schema-type">array</span><span class="schema-desc">相关词条内链</span></div>
+            <div class="schema-row"><span class="schema-field">solana_specific</span><span class="schema-type">bool</span><span class="schema-desc">是否 Solana 专属</span></div>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">词条分类规划（200词）</div>
+            <ul class="spec-list">
+              <li>Solana 专属概念 ×40（PoH, Sealevel...）</li>
+              <li>DeFi 基础术语 ×40（AMM, TVL, APY...）</li>
+              <li>NFT 与数字资产 ×30</li>
+              <li>交易与钱包 ×30（Gas, Slippage...）</li>
+              <li>安全与风险 ×25（Rug Pull, Phishing...）</li>
+              <li>社区与文化 ×20（WAGMI, Degen...）</li>
+              <li>技术底层 ×15（Smart Contract...）</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">SEO 关键策略</div>
+          <div class="callout-text">每个词条生成独立 URL：/glossary/proof-of-history。页面 title 格式："什么是 Proof of History（PoH）？| BuySolanas 词汇表"。这种格式精准命中"什么是XXX"类搜索意图，是 CoinGecko Glossary 页面获取大量搜索流量的核心原因。</div>
+        </div>
+
+        <div class="spec-block">
+          <div class="spec-block-title">词汇表页面功能需求</div>
+          <ul class="spec-list">
+            <li>首字母 A-Z 导航 + 分类筛选（DeFi/NFT/Solana...）</li>
+            <li>全文搜索，输入即时过滤，无需跳转</li>
+            <li>每个词条页有"相关词条"内链，提升 SEO 深度</li>
+            <li>"Solana 专属"标签特殊标注，体现差异化</li>
+            <li>词条页底部推荐相关课程，引导用户进入学习系统</li>
+            <li>支持用户"收藏词条"（需登录），后续可做个人词汇本</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STRATEGY 3 ── -->
+<section class="section" id="s3">
+  <div class="section-header">
+    <div class="section-eyebrow">策略 03 / 五大核心</div>
+    <h2 class="section-title">三级学习课程体系</h2>
+    <p class="section-desc">参照 CoinGecko Learn 的内容分级策略，建立新手→进阶→高级三级课程路径，配合进度追踪提升用户粘性和完课率。</p>
+  </div>
+
+  <div class="strategy-card" id="s3-card">
+    <div class="strategy-header" onclick="toggle('s3-card')">
+      <div class="strategy-num">03</div>
+      <div class="strategy-info">
+        <div class="strategy-title">结构化课程系统 + 学习进度追踪</div>
+        <div class="strategy-tags">
+          <span class="tag tag-impact">高用户留存</span>
+          <span class="tag tag-effort">中开发量</span>
+          <span class="tag tag-time">6–8 周</span>
+          <span class="tag tag-priority">P2 优先</span>
+        </div>
+      </div>
+      <div class="strategy-chevron">▼</div>
+    </div>
+    <div class="strategy-body">
+      <div class="strategy-body-inner">
+
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">Level 1 — 入门（新手）</div>
+            <ul class="spec-list">
+              <li>01. 什么是区块链？5分钟看懂</li>
+              <li>02. 为什么选择 Solana？</li>
+              <li>03. 创建你的第一个 Phantom 钱包</li>
+              <li>04. 如何购买 SOL？完整图文指南</li>
+              <li>05. Solana 生态地图概览</li>
+              <li>06. 常见新手误区与避坑指南</li>
+            </ul>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">Level 2 — 进阶（生态探索）</div>
+            <ul class="spec-list">
+              <li>07. 如何使用 Jupiter DEX 交易</li>
+              <li>08. Solana DeFi 全景：借贷/流动性挖矿</li>
+              <li>09. SOL 质押入门：赚取被动收益</li>
+              <li>10. Solana NFT：Tensor 平台操作指南</li>
+              <li>11. 识别 Rug Pull 和钓鱼攻击</li>
+              <li>12. 链上数据分析基础（SolScan）</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="spec-block">
+          <div class="spec-block-title">Level 3 — 高级（策略与技术）</div>
+          <ul class="spec-list">
+            <li>13. 流动性提供（LP）策略与无常损失详解</li>
+            <li>14. Solana Staking 深入：选择最优验证节点</li>
+            <li>15. 链上数据读取：用 Helius API 分析钱包行为</li>
+            <li>16. Solana 程序（智能合约）概念入门</li>
+            <li>17. DeFi 税务处理基础（中国用户视角）</li>
+          </ul>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">课程系统技术架构</div>
+          <div class="callout-text">课程内容使用 Markdown 存储（便于内容团队编辑），Next.js 渲染为静态页面（SEO 友好）。用户进度存储在数据库，无需登录可完成阅读，登录后才记录进度。每节课末尾有 3-5 道测验题，通过后显示完成徽章。</div>
+        </div>
+
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">课程页面 UX 功能</div>
+            <ul class="spec-list">
+              <li>课程目录左侧固定显示</li>
+              <li>阅读进度条（顶部细线）</li>
+              <li>估算阅读时间显示</li>
+              <li>图文混排 + 视频嵌入支持</li>
+              <li>"上一课 / 下一课" 导航</li>
+              <li>关键词自动链接到词汇表</li>
+            </ul>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">用户账户功能</div>
+            <ul class="spec-list">
+              <li>邮件/Google 注册登录</li>
+              <li>个人学习进度仪表盘</li>
+              <li>已完成课程徽章展示</li>
+              <li>收藏课程与词条</li>
+              <li>每周学习目标设定</li>
+              <li>完课后生成分享卡片</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STRATEGY 4 ── -->
+<section class="section" id="s4">
+  <div class="section-header">
+    <div class="section-eyebrow">策略 04 / 五大核心</div>
+    <h2 class="section-title">Newsletter 订阅系统</h2>
+    <p class="section-desc">CoinGecko 靠 60 万+订阅者建立极强的用户留存。Newsletter 是成本最低、ROI 最高的用户触达工具，尤其适合加密领域。</p>
+  </div>
+
+  <div class="strategy-card" id="s4-card">
+    <div class="strategy-header" onclick="toggle('s4-card')">
+      <div class="strategy-num">04</div>
+      <div class="strategy-info">
+        <div class="strategy-title">每周 Solana 周报 + 自动化邮件序列</div>
+        <div class="strategy-tags">
+          <span class="tag tag-impact">高留存率</span>
+          <span class="tag tag-effort">极低开发</span>
+          <span class="tag tag-time">1 周</span>
+          <span class="tag tag-priority">P3 优先</span>
+        </div>
+      </div>
+      <div class="strategy-chevron">▼</div>
+    </div>
+    <div class="strategy-body">
+      <div class="strategy-body-inner">
+
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">每周周报内容结构</div>
+            <ul class="spec-list">
+              <li>本周 SOL 价格表现回顾</li>
+              <li>Solana 生态 3 条重要新闻</li>
+              <li>本周推荐学习：1 个词条 + 1 篇课程</li>
+              <li>本周链上数据亮点（TVL变化/新项目）</li>
+              <li>社区问答精选（Q&A）</li>
+              <li>下周值得关注的事件</li>
+            </ul>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">自动化欢迎邮件序列</div>
+            <ul class="spec-list">
+              <li>Day 0：欢迎 + 平台功能介绍</li>
+              <li>Day 1：推送"新手必读"第一课</li>
+              <li>Day 3：推送词汇表入门 10 词</li>
+              <li>Day 7：推送 Solana 钱包创建指南</li>
+              <li>Day 14：引导加入 Discord 社区</li>
+              <li>Day 30：成就回顾 + 进阶课程推荐</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout green">
+          <div class="callout-title">工具推荐：Resend + React Email</div>
+          <div class="callout-text">推荐使用 Resend（现代邮件 API，免费 3000 封/月）+ React Email（用 React 写邮件模板）。相比 Mailchimp，Resend 开发体验更好、更易与 Next.js 集成，且代码与网站同仓库管理。订阅表单使用 Next.js API Route 实现，数据存入自己的数据库，不依赖第三方表单服务。</div>
+        </div>
+
+        <div class="spec-block">
+          <div class="spec-block-title">订阅入口位置规划</div>
+          <ul class="spec-list">
+            <li>Hero 区副 CTA（主 CTA 是"开始学习"，次 CTA 是"订阅周报"）</li>
+            <li>每篇课程文章底部的订阅弹出框（阅读进度 80% 时触发）</li>
+            <li>词汇表页面右侧固定订阅卡片</li>
+            <li>Footer 全局订阅区域</li>
+            <li>退出意图弹窗（用户将鼠标移至页面顶部时触发）</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STRATEGY 5 ── -->
+<section class="section" id="s5">
+  <div class="section-header">
+    <div class="section-eyebrow">策略 05 / 五大核心</div>
+    <h2 class="section-title">积分奖励 + 社区系统</h2>
+    <p class="section-desc">参照 CoinGecko Candy 积分机制，通过完成学习任务获得积分，兑换奖励。同时整合 Discord 社群，形成完整的用户留存生态。</p>
+  </div>
+
+  <div class="strategy-card" id="s5-card">
+    <div class="strategy-header" onclick="toggle('s5-card')">
+      <div class="strategy-num">05</div>
+      <div class="strategy-info">
+        <div class="strategy-title">学习积分系统 + Discord 社区整合</div>
+        <div class="strategy-tags">
+          <span class="tag tag-impact">极高粘性</span>
+          <span class="tag tag-effort">中高开发</span>
+          <span class="tag tag-time">4–6 周</span>
+          <span class="tag tag-priority">P4 优先</span>
+        </div>
+      </div>
+      <div class="strategy-chevron">▼</div>
+    </div>
+    <div class="strategy-body">
+      <div class="strategy-body-inner">
+
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">积分获取方式</div>
+            <ul class="spec-list">
+              <li>每日登录：+5 分</li>
+              <li>完成一节课：+20 分</li>
+              <li>通过课后测验：+15 分</li>
+              <li>学完一个 Level：+100 分</li>
+              <li>订阅 Newsletter：+30 分</li>
+              <li>邀请好友注册：+50 分/人</li>
+              <li>在社区回答问题：+10 分</li>
+            </ul>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">积分兑换奖励</div>
+            <ul class="spec-list">
+              <li>500分：专属学习者 NFT 徽章</li>
+              <li>1000分：BuySolanas 贴纸包邮</li>
+              <li>2000分：合作交易所手续费折扣券</li>
+              <li>5000分：高级课程提前访问权</li>
+              <li>TOP榜用户：每月 SOL 奖励</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="spec-grid">
+          <div class="spec-block">
+            <div class="spec-block-title">Discord 社区结构</div>
+            <ul class="spec-list">
+              <li>#公告频道（官方动态）</li>
+              <li>#新手问答（入门问题专区）</li>
+              <li>#DeFi-讨论</li>
+              <li>#NFT-讨论</li>
+              <li>#价格-行情（自动 Bot 推送）</li>
+              <li>#每周学习打卡</li>
+              <li>#工作机会（Web3 招聘）</li>
+            </ul>
+          </div>
+          <div class="spec-block">
+            <div class="spec-block-title">Discord Bot 自动化</div>
+            <ul class="spec-list">
+              <li>每日 SOL 价格自动推送</li>
+              <li>新课程发布自动通知</li>
+              <li>积分系统与 Discord 等级同步</li>
+              <li>每周词汇表新词推送</li>
+              <li>链上大额转账告警（趣味功能）</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout amber">
+          <div class="callout-title">MVP 建议：先做 Discord，再做积分</div>
+          <div class="callout-text">积分系统开发量较大，建议先启动 Discord 社群积累用户（0 开发成本），待用户达 500+ 后再开发积分系统。Discord 与网站的整合只需要一个邀请链接 + Widget 嵌入，一天内可完成。</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── ROADMAP ── -->
+<section class="section" id="roadmap">
+  <div class="section-header">
+    <div class="section-eyebrow">开发路线图</div>
+    <h2 class="section-title">四阶段实施计划</h2>
+    <p class="section-desc">按照影响力 × 开发难度排序，确保每个阶段都有可上线的成果。</p>
+  </div>
+
+  <div class="roadmap">
+
+    <div class="roadmap-phase">
+      <div class="roadmap-dot done"><div class="roadmap-dot-inner"></div></div>
+      <div class="phase-label">Phase 0 · 已完成</div>
+      <div class="phase-title">V1.0 基础框架</div>
+      <div class="phase-desc">中文网站、基础 Solana 介绍内容、多语言支持</div>
+      <div class="task-list">
+        <div class="task-item">
+          <div class="task-check done">✓</div>
+          <div class="task-name">网站上线（buysolanas.com）</div>
+          <div class="task-meta"><span class="task-t">已完成</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check done">✓</div>
+          <div class="task-name">中英文双语支持 (/zh-CN)</div>
+          <div class="task-meta"><span class="task-t">已完成</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-phase">
+      <div class="roadmap-dot active"><div class="roadmap-dot-inner"></div></div>
+      <div class="phase-label">Phase 1 · 第 1–3 周 · 当前阶段</div>
+      <div class="phase-title">即时可见的改进：Slogan + Ticker + 词汇表</div>
+      <div class="phase-desc">零后端依赖，纯前端/内容工作为主，快速上线提升网站可信度与 SEO</div>
+      <div class="task-list">
+        <div class="task-item">
+          <div class="task-check active"></div>
+          <div class="task-name">更换 Hero Slogan → "从零到 Solana，你的 Web3 第一站"</div>
+          <div class="task-meta"><span class="task-t">1天</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check active"></div>
+          <div class="task-name">重新设计 Landing Page（参照提供的 V2 设计稿）</div>
+          <div class="task-meta"><span class="task-t">3–5天</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check active"></div>
+          <div class="task-name">接入 CoinGecko API，实现 SOL 价格 Ticker Bar</div>
+          <div class="task-meta"><span class="task-t">3天</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check active"></div>
+          <div class="task-name">编写词汇表首批 50 个词条（Solana 专属 + DeFi 基础）</div>
+          <div class="task-meta"><span class="task-t">1周</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check active"></div>
+          <div class="task-name">词汇表页面开发（A-Z 索引 + 搜索 + 独立词条页）</div>
+          <div class="task-meta"><span class="task-t">1周</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check active"></div>
+          <div class="task-name">建立 Discord 社群 + 在网站添加加入入口</div>
+          <div class="task-meta"><span class="task-t">1天</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-phase">
+      <div class="roadmap-dot"><div class="roadmap-dot-inner"></div></div>
+      <div class="phase-label">Phase 2 · 第 4–8 周</div>
+      <div class="phase-title">内容深度：课程系统 + Newsletter</div>
+      <div class="phase-desc">需要后端支持（用户账户/进度），同步启动内容生产流水线</div>
+      <div class="task-list">
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div class="task-name">词汇表扩充至 200 词条，完成全部分类</div>
+          <div class="task-meta"><span class="task-t">3周</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div class="task-name">课程系统前端开发（课程列表、阅读器、进度条）</div>
+          <div class="task-meta"><span class="task-t">3周</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div class="task-name">Level 1 全部 6 篇课程内容编写完成</div>
+          <div class="task-meta"><span class="task-t">2周</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div class="task-name">用户账户系统（注册/登录/进度存储）</div>
+          <div class="task-meta"><span class="task-t">2周</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div class="task-name">接入 Resend，发送第一期 Newsletter</div>
+          <div class="task-meta"><span class="task-t">1周</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div class="task-name">订阅入口嵌入（文章底部 + 退出意图弹窗）</div>
+          <div class="task-meta"><span class="task-t">3天</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div class="task-name">SEO 优化：sitemap、robots、OG tags、Schema.org</div>
+          <div class="task-meta"><span class="task-t">1周</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roadmap-phase">
+      <div class="roadmap-dot"><div class="roadmap-dot-inner"></div></div>
+      <div class="phase-label">Phase 3 · 第 9–16 周</div>
+      <div class="phase-title">用户粘性：积分系统 + 高级功能</div>
+      <div class="phase-desc">在前两阶段积累了足够用户基础后，上线提升留存率的核心机制</div>
+      <div class="task-list">
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div class="task-name">Level 2 & 3 课程内容完成（11 篇）</div>
+          <div class="task-meta"><span class="task-t">4周</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div class="task-name">课后测验系统开发</div>
+          <div class="task-meta"><span class="task-t">2周</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div class="task-name">积分系统后端（获取/扣除/余额查询 API）</div>
+          <div class="task-meta"><span class="task-t">2周</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div class="task-name">积分与 Discord 角色同步（Discord Bot 开发）</div>
+          <div class="task-meta"><span class="task-t">1周</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div class="task-name">行情详情页（K线图 + 生态代币 + 质押数据）</div>
+          <div class="task-meta"><span class="task-t">2周</span></div>
+        </div>
+        <div class="task-item">
+          <div class="task-check"></div>
+          <div class="task-name">用户个人主页（学习进度 + 徽章展示）</div>
+          <div class="task-meta"><span class="task-t">2周</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ── TECH STACK ── -->
+<section class="section" id="tech">
+  <div class="section-header">
+    <div class="section-eyebrow">技术选型</div>
+    <h2 class="section-title">推荐技术栈</h2>
+    <p class="section-desc">针对中小团队/独立开发者的务实选型，兼顾开发效率与未来可扩展性。</p>
+  </div>
+
+  <div class="stack-grid">
+    <div class="stack-card">
+      <div class="stack-layer">前端框架</div>
+      <div class="stack-items">
+        <div class="stack-item"><div class="stack-dot" style="background:#3B82F6"></div><span class="stack-name">Next.js 14+</span><span class="stack-note">App Router</span></div>
+        <div class="stack-item"><div class="stack-dot" style="background:#60A5FA"></div><span class="stack-name">Tailwind CSS</span><span class="stack-note">样式系统</span></div>
+        <div class="stack-item"><div class="stack-dot" style="background:#A78BFA"></div><span class="stack-name">TypeScript</span><span class="stack-note">类型安全</span></div>
+        <div class="stack-item"><div class="stack-dot" style="background:#34D399"></div><span class="stack-name">Framer Motion</span><span class="stack-note">动画</span></div>
+      </div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-layer">后端 & 数据库</div>
+      <div class="stack-items">
+        <div class="stack-item"><div class="stack-dot" style="background:#10B981"></div><span class="stack-name">Next.js API Routes</span><span class="stack-note">无需独立后端</span></div>
+        <div class="stack-item"><div class="stack-dot" style="background:#6EE7B7"></div><span class="stack-name">Supabase</span><span class="stack-note">用户/进度存储</span></div>
+        <div class="stack-item"><div class="stack-dot" style="background:#FCD34D"></div><span class="stack-name">Redis (Upstash)</span><span class="stack-note">行情数据缓存</span></div>
+        <div class="stack-item"><div class="stack-dot" style="background:#F59E0B"></div><span class="stack-name">MDX</span><span class="stack-note">课程内容管理</span></div>
+      </div>
+    </div>
+    <div class="stack-card">
+      <div class="stack-layer">外部服务</div>
+      <div class="stack-items">
+        <div class="stack-item"><div class="stack-dot" style="background:#EF4444"></div><span class="stack-name">CoinGecko API</span><span class="stack-note">行情数据</span></div>
+        <div class="stack-item"><div class="stack-dot" style="background:#FCA5A5"></div><span class="stack-name">Resend</span><span class="stack-note">邮件发送</span></div>
+        <div class="stack-item"><div class="stack-dot" style="background:#93C5FD"></div><span class="stack-name">Vercel</span><span class="stack-note">部署/CDN</span></div>
+        <div class="stack-item"><div class="stack-dot" style="background:#C084FC"></div><span class="stack-name">Plausible</span><span class="stack-note">隐私友好统计</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:16px">
+    <div class="callout-title">为什么选 Next.js + Supabase + Vercel？</div>
+    <div class="callout-text">这三者合称"Next.js 全栈铁三角"：Next.js 处理前后端（API Routes 替代独立 Express 服务），Supabase 提供开箱即用的 PostgreSQL + Auth + 实时订阅，Vercel 零配置部署。对于 1-2 人团队，这是开发效率最高的组合。Supabase 免费计划足够 Phase 1-2 使用。</div>
+  </div>
+</section>
+
+<!-- ── API DESIGN ── -->
+<section class="section" id="api">
+  <div class="section-header">
+    <div class="section-eyebrow">API 设计</div>
+    <h2 class="section-title">核心 API 端点规范</h2>
+  </div>
+
+  <div class="api-endpoint">
+    <div class="api-header">
+      <span class="method-badge method-get">GET</span>
+      <span class="api-path">/api/price/sol</span>
+      <span class="api-desc">SOL 实时价格（含缓存）</span>
+    </div>
+    <div class="api-body">
+      <div class="code-block">{ <span class="str">"price_usd"</span>: <span class="num">142.50</span>, <span class="str">"price_cny"</span>: <span class="num">1033.80</span>, <span class="str">"change_24h"</span>: <span class="num">3.21</span>, <span class="str">"market_cap"</span>: <span class="num">66200000000</span>, <span class="str">"volume_24h"</span>: <span class="num">4100000000</span>, <span class="str">"updated_at"</span>: <span class="str">"2025-03-23T10:30:00Z"</span> }</div>
+    </div>
+  </div>
+
+  <div class="api-endpoint">
+    <div class="api-header">
+      <span class="method-badge method-get">GET</span>
+      <span class="api-path">/api/glossary</span>
+      <span class="api-desc">词汇列表（支持分页/搜索/分类过滤）</span>
+    </div>
+    <div class="api-body">
+      <div class="code-block">GET /api/glossary?search=<span class="str">staking</span>&category=<span class="str">defi</span>&page=<span class="num">1</span>&limit=<span class="num">20</span></div>
+    </div>
+  </div>
+
+  <div class="api-endpoint">
+    <div class="api-header">
+      <span class="method-badge method-post">POST</span>
+      <span class="api-path">/api/newsletter/subscribe</span>
+      <span class="api-desc">邮件订阅</span>
+    </div>
+    <div class="api-body">
+      <div class="code-block">Body: { <span class="str">"email"</span>: <span class="str">"user@example.com"</span>, <span class="str">"source"</span>: <span class="str">"hero_cta"</span> }
+Response: { <span class="str">"success"</span>: <span class="kw">true</span>, <span class="str">"message"</span>: <span class="str">"订阅成功，请查收确认邮件"</span> }</div>
+    </div>
+  </div>
+
+  <div class="api-endpoint">
+    <div class="api-header">
+      <span class="method-badge method-post">POST</span>
+      <span class="api-path">/api/progress/complete</span>
+      <span class="api-desc">标记课程完成 + 发放积分</span>
+    </div>
+    <div class="api-body">
+      <div class="code-block">Body: { <span class="str">"user_id"</span>: <span class="str">"uuid"</span>, <span class="str">"course_id"</span>: <span class="str">"sol-basics-01"</span> }
+Response: { <span class="str">"points_earned"</span>: <span class="num">20</span>, <span class="str">"total_points"</span>: <span class="num">145</span>, <span class="str">"badge_unlocked"</span>: <span class="kw">null</span> }</div>
+    </div>
+  </div>
+
+</section>
+
+<hr class="divider">
+
+<!-- ── SEO ── -->
+<section class="section" id="seo">
+  <div class="section-header">
+    <div class="section-eyebrow">SEO 策略</div>
+    <h2 class="section-title">搜索引擎优化方案</h2>
+  </div>
+
+  <div class="spec-grid">
+    <div class="spec-block">
+      <div class="spec-block-title">目标关键词（中文）</div>
+      <ul class="spec-list">
+        <li>Solana 是什么（月搜索量：高）</li>
+        <li>如何购买 SOL（月搜索量：高）</li>
+        <li>SOL 钱包怎么创建</li>
+        <li>DeFi 是什么意思</li>
+        <li>Solana 质押教程</li>
+        <li>加密货币词汇表（长尾）</li>
+        <li>PoH 是什么（Solana 专属）</li>
+      </ul>
+    </div>
+    <div class="spec-block">
+      <div class="spec-block-title">技术 SEO 清单</div>
+      <ul class="spec-list">
+        <li>每个词条页独立 URL + meta title</li>
+        <li>Schema.org DefinedTerm 结构化数据</li>
+        <li>XML Sitemap 自动生成（含词汇表+课程）</li>
+        <li>Open Graph + Twitter Card（社交分享）</li>
+        <li>Core Web Vitals 优化（Vercel Edge）</li>
+        <li>中文繁简体双版本 hreflang 标签</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── KPI ── -->
+<section class="section" id="kpi">
+  <div class="section-header">
+    <div class="section-eyebrow">KPI 追踪</div>
+    <h2 class="section-title">各阶段成功指标</h2>
+  </div>
+
+  <table class="feature-table" style="width:100%; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;">
+    <thead>
+      <tr>
+        <th>指标</th>
+        <th>Phase 1 目标</th>
+        <th>Phase 2 目标</th>
+        <th>Phase 3 目标</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>月独立访客</td><td>1,000</td><td>10,000</td><td>50,000</td></tr>
+      <tr><td>平均停留时长</td><td>2 分钟</td><td>5 分钟</td><td>8 分钟</td></tr>
+      <tr><td>Newsletter 订阅数</td><td>200</td><td>2,000</td><td>10,000</td></tr>
+      <tr><td>词汇表页面数</td><td>50 词</td><td>200 词</td><td>300 词</td></tr>
+      <tr><td>课程完成率</td><td>—</td><td>30%+</td><td>40%+</td></tr>
+      <tr><td>Discord 成员数</td><td>100</td><td>500</td><td>2,000</td></tr>
+      <tr><td>SEO 自然流量占比</td><td>20%</td><td>45%</td><td>60%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout green" style="margin-top:20px">
+    <div class="callout-title">核心飞轮：内容 → SEO → 订阅 → 社区</div>
+    <div class="callout-text">词汇表和课程内容驱动 SEO 流量 → 流量通过 Newsletter 转化为订阅用户 → 订阅用户通过积分系统加入 Discord → Discord 社区产生 UGC 内容 → UGC 内容进一步带来新流量。这个飞轮一旦启动，增长会自我强化。</div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+function toggle(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+// Open first card by default
+document.querySelectorAll('.strategy-card').forEach((c, i) => {
+  if (i > 0) c.classList.remove('open');
+});
+// Highlight active nav on scroll
+const sections = document.querySelectorAll('.section[id]');
+const navItems = document.querySelectorAll('.nav-item');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  navItems.forEach(n => {
+    n.classList.remove('active');
+    if (n.getAttribute('href') === '#' + current) n.classList.add('active');
+  });
+}, { passive: true });
+</script>
+</body>
+</html>

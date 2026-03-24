@@ -13,7 +13,8 @@
     "glossary": "术语表",
     "prices": "行情",
     "ask": "提问",
-    "community": "社区"
+    "community": "社区",
+    "domains": "域名"
   },
   "home": {
     "heroTitle": "安全学习 Solana",
@@ -121,8 +122,39 @@
     "step3Desc": "通过引导课程和真实案例应用你的知识。",
     "ctaButton": "开始课程"
   },
+  "domains": {
+    "badge": "优质域名",
+    "title": "Solana 生态域名包",
+    "subtitle": "精选 9 个 Solana 相关优质域名，涵盖质押、AI、企业服务等热门赛道。支持单独购买或打包优惠。",
+    "valueSeo": "SEO 优势",
+    "valueSeoDesc": "每个域名包含 'solana' 关键词，天然搜索引擎优势。",
+    "valueBrand": "即时品牌",
+    "valueBrandDesc": "好记的 .com、.ai、.cn 域名，可立即启动项目。",
+    "valueTrust": "域名簇效应",
+    "valueTrustDesc": "互链域名网络，已有流量和反向链接加持。",
+    "portfolioTitle": "在售域名",
+    "bundleTitle": "打包优惠",
+    "bundleDesc": "多个域名一起购买可享折扣。完整域名组合形成强大的 Solana 域名簇。",
+    "bundlePerk1": "批量折扣",
+    "bundlePerk2": "互链 SEO 加成",
+    "bundlePerk3": "即时过户",
+    "inquiryTitle": "获取报价",
+    "selectDomains": "选择你感兴趣的域名",
+    "bundleHint": "已选多个域名 — 可享打包优惠！",
+    "emailLabel": "你的邮箱",
+    "emailPlaceholder": "you@company.com",
+    "budgetLabel": "预算范围",
+    "budgetPlaceholder": "选择范围...",
+    "budgetBundle": "打包购买（询价）",
+    "messageLabel": "留言（选填）",
+    "messagePlaceholder": "介绍你的项目或域名用途...",
+    "submitInquiry": "发送询价",
+    "submitting": "发送中...",
+    "successMessage": "询价已发送！我们将在 24 小时内回复。",
+    "errorMessage": "发送失败，请重试。"
+  },
   "footer": {
-    "copyright": "© 2024 Buysolanas.com. 保留所有权利。",
+    "copyright": "© 2025 Buysolanas.com. 保留所有权利。",
     "disclaimer": "加密货币投资存在风险。本站仅供教育目的。"
   }
 }

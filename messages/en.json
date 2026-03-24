@@ -13,7 +13,8 @@
     "glossary": "Glossary",
     "prices": "Prices",
     "ask": "Ask",
-    "community": "Community"
+    "community": "Community",
+    "domains": "Domains"
   },
   "home": {
     "heroTitle": "Learn Solana, safely.",
@@ -121,8 +122,39 @@
     "step3Desc": "Apply your knowledge with guided lessons and real-world examples.",
     "ctaButton": "Begin the Course"
   },
+  "domains": {
+    "badge": "Premium Domains",
+    "title": "Solana Domain Portfolio",
+    "subtitle": "9 premium Solana-related domains covering staking, AI, enterprise, and more. Available individually or as a discounted bundle.",
+    "valueSeo": "SEO Power",
+    "valueSeoDesc": "Each domain contains the 'solana' keyword for organic search visibility.",
+    "valueBrand": "Instant Branding",
+    "valueBrandDesc": "Memorable .com, .ai, .cn domains ready for immediate project launch.",
+    "valueTrust": "Established Cluster",
+    "valueTrustDesc": "Cross-linked domain network with existing traffic and backlinks.",
+    "portfolioTitle": "Available Domains",
+    "bundleTitle": "Bundle Discount Available",
+    "bundleDesc": "Purchase multiple domains together and save. The complete portfolio creates a powerful Solana domain cluster.",
+    "bundlePerk1": "Volume discount",
+    "bundlePerk2": "Cross-link SEO boost",
+    "bundlePerk3": "Instant transfer",
+    "inquiryTitle": "Get a Quote",
+    "selectDomains": "Select domains you're interested in",
+    "bundleHint": "Multiple domains selected — bundle pricing available!",
+    "emailLabel": "Your Email",
+    "emailPlaceholder": "you@company.com",
+    "budgetLabel": "Budget Range",
+    "budgetPlaceholder": "Select range...",
+    "budgetBundle": "Bundle deal (ask for quote)",
+    "messageLabel": "Message (optional)",
+    "messagePlaceholder": "Tell us about your project or intended use...",
+    "submitInquiry": "Send Inquiry",
+    "submitting": "Sending...",
+    "successMessage": "Inquiry sent! We'll respond within 24 hours.",
+    "errorMessage": "Something went wrong. Please try again."
+  },
   "footer": {
-    "copyright": "© 2024 Buysolanas.com. All rights reserved.",
+    "copyright": "© 2025 Buysolanas.com. All rights reserved.",
     "disclaimer": "Cryptocurrency investments carry risk. This site is for educational purposes only."
   }
 }

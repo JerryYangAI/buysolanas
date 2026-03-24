@@ -4,6 +4,8 @@ import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
 import { Zap, BookOpen, TrendingUp } from 'lucide-react';
+import DomainShowcase from '@/components/DomainShowcase';
+import DomainCluster from '@/components/DomainCluster';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://buysolanas.com';
 
@@ -33,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const cardIcons = [Zap, BookOpen, TrendingUp];
 
-export default function HomePage() {
+export default function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const t = useTranslations('home');
 
   const cards = [
@@ -102,6 +104,12 @@ export default function HomePage() {
           })}
         </section>
       </div>
+
+      {/* Domain Portfolio Showcase */}
+      <DomainShowcase locale="en" />
+
+      {/* Domain Cluster Cross-links */}
+      <DomainCluster locale="en" />
     </div>
   );
 }

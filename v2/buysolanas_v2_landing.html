@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuySolanas.com — 从零到Solana，你的Web3第一站</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sol-purple: #9945FF;
+    --sol-green: #14F195;
+    --sol-blue: #00C2FF;
+    --dark-bg: #0A0A0F;
+    --dark-card: #111118;
+    --dark-card2: #16161F;
+    --border: rgba(255,255,255,0.08);
+    --text-primary: #F0F0F8;
+    --text-secondary: #8888AA;
+    --text-muted: #44445A;
+    --font-en: 'Space Grotesk', sans-serif;
+    --font-zh: 'Noto Sans SC', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    font-family: var(--font-zh);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .logo {
+    font-family: var(--font-en);
+    font-size: 18px; font-weight: 700;
+    background: linear-gradient(90deg, var(--sol-purple), var(--sol-green));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+  }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    color: var(--text-secondary); text-decoration: none;
+    font-size: 14px; font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text-primary); }
+  .nav-cta {
+    background: var(--sol-purple);
+    color: #fff; border: none;
+    padding: 8px 18px; border-radius: 8px;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer; font-family: var(--font-zh);
+    transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* ===== SOL TICKER BAR ===== */
+  .ticker-bar {
+    background: var(--dark-card);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 5%;
+    display: flex; gap: 32px; align-items: center;
+    overflow-x: auto; white-space: nowrap;
+    font-size: 13px;
+  }
+  .ticker-item { display: flex; align-items: center; gap: 8px; }
+  .ticker-label { color: var(--text-secondary); font-weight: 400; }
+  .ticker-price { font-family: var(--font-en); font-weight: 600; color: var(--text-primary); }
+  .ticker-change-up { color: #14F195; font-size: 12px; }
+  .ticker-change-down { color: #FF4D4D; font-size: 12px; }
+  .ticker-divider { color: var(--text-muted); }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 88vh;
+    display: flex; align-items: center;
+    padding: 80px 5% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; left: -100px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(153,69,255,0.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -100px; right: 5%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(20,241,149,0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .hero-content { max-width: 620px; position: relative; z-index: 1; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(153,69,255,0.12); border: 1px solid rgba(153,69,255,0.25);
+    color: #B87FFF; font-size: 12px; font-weight: 500;
+    padding: 5px 12px; border-radius: 20px; margin-bottom: 24px;
+  }
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--sol-green); animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  h1 {
+    font-family: var(--font-zh);
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 700; line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  h1 .highlight {
+    background: linear-gradient(90deg, var(--sol-purple) 0%, var(--sol-green) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 17px; color: var(--text-secondary); font-weight: 300;
+    line-height: 1.7; margin-bottom: 36px; max-width: 500px;
+  }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--sol-purple), #6E2FCC);
+    color: #fff; border: none; padding: 14px 28px;
+    border-radius: 10px; font-size: 15px; font-weight: 500;
+    cursor: pointer; font-family: var(--font-zh);
+    box-shadow: 0 4px 24px rgba(153,69,255,0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 30px rgba(153,69,255,0.4); }
+  .btn-secondary {
+    background: transparent; color: var(--text-primary);
+    border: 1px solid var(--border); padding: 14px 28px;
+    border-radius: 10px; font-size: 15px; font-weight: 400;
+    cursor: pointer; font-family: var(--font-zh);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.04); }
+  .hero-stats {
+    display: flex; gap: 36px; margin-top: 52px;
+    padding-top: 36px; border-top: 1px solid var(--border);
+  }
+  .stat-val { font-family: var(--font-en); font-size: 24px; font-weight: 700; color: var(--text-primary); }
+  .stat-label { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+
+  /* ===== SOL PRICE CARD (right side) ===== */
+  .hero-visual {
+    position: absolute; right: 5%; top: 50%;
+    transform: translateY(-50%);
+    width: 340px;
+    z-index: 1;
+  }
+  .price-card {
+    background: var(--dark-card);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px;
+  }
+  .price-card-header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+  }
+  .sol-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--sol-purple), var(--sol-blue));
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-en); font-weight: 700; font-size: 13px; color: #fff;
+  }
+  .sol-name { font-weight: 600; font-size: 15px; }
+  .sol-ticker { font-size: 12px; color: var(--text-secondary); }
+  .price-big {
+    font-family: var(--font-en); font-size: 36px; font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .price-change-up {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: rgba(20,241,149,0.12); color: #14F195;
+    font-size: 13px; font-weight: 500; padding: 3px 10px; border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .mini-chart {
+    height: 60px; background: var(--dark-card2);
+    border-radius: 8px; margin-bottom: 16px;
+    position: relative; overflow: hidden;
+  }
+  .mini-chart svg { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; }
+  .price-row {
+    display: flex; justify-content: space-between;
+    font-size: 12px; padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-secondary);
+  }
+  .price-row:last-child { border-bottom: none; }
+  .price-row span:last-child { color: var(--text-primary); font-weight: 500; }
+
+  /* ===== FEATURES ===== */
+  .section { padding: 80px 5%; }
+  .section-label {
+    font-size: 12px; font-weight: 500; color: var(--sol-purple);
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(26px, 3vw, 38px); font-weight: 700;
+    margin-bottom: 12px; letter-spacing: -0.02em;
+  }
+  .section-sub { font-size: 16px; color: var(--text-secondary); max-width: 500px; margin-bottom: 48px; }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .feature-card {
+    background: var(--dark-card);
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .feature-card:hover { border-color: rgba(153,69,255,0.3); transform: translateY(-2px); }
+  .feature-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 16px;
+  }
+  .icon-purple { background: rgba(153,69,255,0.12); }
+  .icon-green { background: rgba(20,241,149,0.1); }
+  .icon-blue { background: rgba(0,194,255,0.1); }
+  .icon-amber { background: rgba(255,180,0,0.1); }
+  .feature-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .feature-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .badge-coming {
+    display: inline-block; margin-top: 12px;
+    font-size: 11px; color: var(--sol-purple);
+    background: rgba(153,69,255,0.1); border: 1px solid rgba(153,69,255,0.2);
+    padding: 2px 8px; border-radius: 4px;
+  }
+
+  /* ===== LEARNING PATH ===== */
+  .path-section { background: var(--dark-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .path-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  .path-item {
+    padding: 40px 32px;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .path-item:last-child { border-right: none; }
+  .path-num {
+    font-family: var(--font-en); font-size: 48px; font-weight: 700;
+    color: var(--text-muted); margin-bottom: 16px; line-height: 1;
+  }
+  .path-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+  .path-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .path-tag {
+    display: inline-block; margin-top: 16px;
+    font-size: 11px; padding: 3px 10px; border-radius: 4px;
+  }
+  .tag-beginner { background: rgba(20,241,149,0.1); color: #14F195; }
+  .tag-mid { background: rgba(0,194,255,0.1); color: #00C2FF; }
+  .tag-adv { background: rgba(153,69,255,0.12); color: #B87FFF; }
+
+  /* ===== GLOSSARY PREVIEW ===== */
+  .glossary-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .glossary-card {
+    background: var(--dark-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px;
+    cursor: pointer; transition: border-color 0.2s;
+  }
+  .glossary-card:hover { border-color: rgba(153,69,255,0.3); }
+  .glossary-term { font-family: var(--font-en); font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .glossary-def { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+  .glossary-more {
+    text-align: center; margin-top: 24px;
+    color: var(--sol-purple); font-size: 14px; cursor: pointer;
+    text-decoration: none; display: block;
+  }
+
+  /* ===== NEWS ===== */
+  .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .news-card {
+    background: var(--dark-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .news-tag {
+    font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 4px;
+    background: rgba(153,69,255,0.12); color: #B87FFF;
+    align-self: flex-start;
+  }
+  .news-title { font-size: 14px; font-weight: 500; line-height: 1.5; }
+  .news-meta { font-size: 12px; color: var(--text-muted); }
+
+  /* ===== COMMUNITY CTA ===== */
+  .community-section {
+    padding: 80px 5%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .community-section::before {
+    content: '';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(153,69,255,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .community-section h2 { margin-bottom: 16px; }
+  .community-section p { color: var(--text-secondary); max-width: 480px; margin: 0 auto 36px; }
+  .community-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .community-btn {
+    display: flex; align-items: center; gap: 8px;
+    border: 1px solid var(--border); background: var(--dark-card);
+    color: var(--text-primary); padding: 12px 20px;
+    border-radius: 10px; font-size: 14px; font-weight: 500;
+    cursor: pointer; font-family: var(--font-zh);
+    text-decoration: none;
+    transition: border-color 0.2s;
+  }
+  .community-btn:hover { border-color: rgba(153,69,255,0.4); }
+
+  /* ===== FOOTER ===== */
+  footer {
+    background: var(--dark-card);
+    border-top: 1px solid var(--border);
+    padding: 48px 5% 32px;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px; margin-bottom: 40px;
+  }
+  .footer-logo { font-family: var(--font-en); font-size: 20px; font-weight: 700;
+    background: linear-gradient(90deg, var(--sol-purple), var(--sol-green));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 12px;
+  }
+  .footer-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .footer-col-title { font-size: 12px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--text-primary); }
+  .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 12px; color: var(--text-muted); }
+  .lang-switch { display: flex; gap: 6px; }
+  .lang-btn {
+    font-size: 12px; padding: 3px 10px; border-radius: 4px;
+    border: 1px solid var(--border); background: transparent;
+    color: var(--text-secondary); cursor: pointer;
+  }
+  .lang-btn.active { border-color: var(--sol-purple); color: var(--sol-purple); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--dark-bg); }
+  ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
+
+  @media (max-width: 900px) {
+    .hero-visual { display: none; }
+    .path-grid { grid-template-columns: 1fr; }
+    .path-item { border-right: none; border-bottom: 1px solid var(--border); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <div class="logo">BuySolanas</div>
+  <ul class="nav-links">
+    <li><a href="#learn">学习课程</a></li>
+    <li><a href="#glossary">词汇表</a></li>
+    <li><a href="#news">资讯</a></li>
+    <li><a href="#community">社区</a></li>
+    <li><a href="#tools">工具</a></li>
+  </ul>
+  <button class="nav-cta">免费开始学习</button>
+</nav>
+
+<!-- ===== TICKER ===== -->
+<div class="ticker-bar">
+  <div class="ticker-item">
+    <span class="ticker-label">SOL/USDT</span>
+    <span class="ticker-price" id="sol-price">$142.50</span>
+    <span class="ticker-change-up" id="sol-change">▲ 3.21%</span>
+  </div>
+  <span class="ticker-divider">|</span>
+  <div class="ticker-item">
+    <span class="ticker-label">市值</span>
+    <span class="ticker-price">$66.2B</span>
+  </div>
+  <span class="ticker-divider">|</span>
+  <div class="ticker-item">
+    <span class="ticker-label">24h 交易量</span>
+    <span class="ticker-price">$4.1B</span>
+  </div>
+  <span class="ticker-divider">|</span>
+  <div class="ticker-item">
+    <span class="ticker-label">TPS</span>
+    <span class="ticker-price ticker-change-up">65,000+</span>
+  </div>
+  <span class="ticker-divider">|</span>
+  <div class="ticker-item">
+    <span class="ticker-label">全球排名</span>
+    <span class="ticker-price">#5</span>
+  </div>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="dot"></div>
+      中文 Solana 教育第一平台
+    </div>
+    <h1>从零到 <span class="highlight">Solana</span><br>你的 Web3 第一站</h1>
+    <p class="hero-sub">系统学习 Solana 生态，读懂加密术语，掌握 DeFi / NFT / Staking，从新手到行家，一站完成。</p>
+    <div class="hero-btns">
+      <button class="btn-primary">开始免费学习 →</button>
+      <button class="btn-secondary">浏览词汇表</button>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-val">50+</div>
+        <div class="stat-label">课程内容</div>
+      </div>
+      <div>
+        <div class="stat-val">200+</div>
+        <div class="stat-label">词汇条目</div>
+      </div>
+      <div>
+        <div class="stat-val">免费</div>
+        <div class="stat-label">永久访问</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Price Card -->
+  <div class="hero-visual">
+    <div class="price-card">
+      <div class="price-card-header">
+        <div class="sol-icon">SOL</div>
+        <div>
+          <div class="sol-name">Solana</div>
+          <div class="sol-ticker">SOL · Solana Network</div>
+        </div>
+      </div>
+      <div class="price-big">$142.50</div>
+      <div class="price-change-up">▲ 3.21% 今日涨幅</div>
+      <div class="mini-chart">
+        <svg viewBox="0 0 300 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#14F195" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#14F195" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M0,50 L20,44 L50,40 L80,42 L100,35 L130,30 L160,25 L180,20 L210,18 L240,12 L270,8 L300,5 L300,60 L0,60 Z" fill="url(#chartGrad)"/>
+          <path d="M0,50 L20,44 L50,40 L80,42 L100,35 L130,30 L160,25 L180,20 L210,18 L240,12 L270,8 L300,5" fill="none" stroke="#14F195" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="price-row"><span>24h 最高</span><span>$148.20</span></div>
+      <div class="price-row"><span>24h 最低</span><span>$136.80</span></div>
+      <div class="price-row"><span>总供应量</span><span>464.7M SOL</span></div>
+      <div class="price-row"><span>Gas 费用</span><span>&lt;$0.001</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="section" id="features">
+  <div class="section-label">核心功能</div>
+  <h2>一站式 Solana 知识平台</h2>
+  <p class="section-sub">从行情数据到深度教育，从词汇解释到社区讨论，所有你需要了解的都在这里。</p>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon icon-green">📈</div>
+      <div class="feature-title">实时行情数据</div>
+      <div class="feature-desc">SOL 价格、市值、交易量实时更新，Solana 生态项目一览无遗。</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon icon-purple">🎓</div>
+      <div class="feature-title">系统学习课程</div>
+      <div class="feature-desc">从区块链基础到 DeFi 操作，三级课程路径，循序渐进掌握 Solana。</div>
+      <span class="badge-coming">即将上线</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon icon-blue">📖</div>
+      <div class="feature-title">加密货币词汇表</div>
+      <div class="feature-desc">200+ 加密术语中文解释，从 HODL 到 Proof-of-History，再也不怕看不懂。</div>
+      <span class="badge-coming">即将上线</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon icon-amber">📰</div>
+      <div class="feature-title">Solana 生态资讯</div>
+      <div class="feature-desc">聚合最新 Solana 生态动态、项目进展、协议更新，每日精选推送。</div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon icon-green">👥</div>
+      <div class="feature-title">中文社区</div>
+      <div class="feature-desc">连接全球华人 Solana 用户，分享经验，提问解惑，共同成长。</div>
+      <span class="badge-coming">即将上线</span>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon icon-purple">🔧</div>
+      <div class="feature-title">实用工具导航</div>
+      <div class="feature-desc">钱包创建、DEX 使用、质押操作，手把手教你安全使用 Solana 生态。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LEARNING PATH ===== -->
+<section class="path-section" id="learn">
+  <div class="section" style="padding-top: 60px; padding-bottom: 60px;">
+    <div class="section-label">学习路径</div>
+    <h2>适合所有阶段的学习者</h2>
+    <p class="section-sub">无论你是完全小白，还是想深入了解 DeFi / 开发，我们都有专属内容。</p>
+  </div>
+  <div class="path-grid">
+    <div class="path-item">
+      <div class="path-num">01</div>
+      <div class="path-title">入门基础</div>
+      <div class="path-desc">什么是区块链？什么是加密货币？为什么选择 Solana？从零认知到开立第一个钱包。</div>
+      <span class="path-tag tag-beginner">新手友好</span>
+    </div>
+    <div class="path-item">
+      <div class="path-num">02</div>
+      <div class="path-title">生态探索</div>
+      <div class="path-desc">深入 DeFi、NFT、Staking、Meme Coin，理解 Solana 生态的每一个重要板块。</div>
+      <span class="path-tag tag-mid">中级</span>
+    </div>
+    <div class="path-item">
+      <div class="path-num">03</div>
+      <div class="path-title">高级策略</div>
+      <div class="path-desc">流动性挖矿、链上数据分析、Solana 程序开发入门，成为真正的生态参与者。</div>
+      <span class="path-tag tag-adv">进阶</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GLOSSARY PREVIEW ===== -->
+<section class="section" id="glossary">
+  <div class="section-label">加密词汇表</div>
+  <h2>看懂加密世界的语言</h2>
+  <p class="section-sub">200+ 常用加密术语中文解释，帮你告别"看天书"的烦恼。</p>
+
+  <div class="glossary-grid">
+    <div class="glossary-card">
+      <div class="glossary-term">Proof-of-History (PoH)</div>
+      <div class="glossary-def">Solana 独创的时间戳机制，允许节点在不通信的情况下验证事件顺序，是 Solana 高性能的核心。</div>
+    </div>
+    <div class="glossary-card">
+      <div class="glossary-term">DeFi</div>
+      <div class="glossary-def">去中心化金融，通过智能合约实现借贷、交易、质押等金融服务，无需银行等中介机构。</div>
+    </div>
+    <div class="glossary-card">
+      <div class="glossary-term">HODL</div>
+      <div class="glossary-def">"Hold On for Dear Life"的缩写，指长期持有加密货币，不因短期价格波动而抛售。</div>
+    </div>
+    <div class="glossary-card">
+      <div class="glossary-term">Staking</div>
+      <div class="glossary-def">将 SOL 质押给验证节点以维护网络安全，同时获取年化收益，目前 Solana 质押年化约 6-8%。</div>
+    </div>
+    <div class="glossary-card">
+      <div class="glossary-term">Gas Fee</div>
+      <div class="glossary-def">执行链上交易所需支付的网络手续费。Solana 的 Gas 费极低，通常不足 $0.001。</div>
+    </div>
+    <div class="glossary-card">
+      <div class="glossary-term">NFT</div>
+      <div class="glossary-def">非同质化代币，每枚代币具有唯一性，用于数字艺术、游戏道具、会员资格等场景。</div>
+    </div>
+  </div>
+  <a href="#" class="glossary-more">浏览全部 200+ 词汇 →</a>
+</section>
+
+<!-- ===== NEWS PREVIEW ===== -->
+<section class="section" id="news" style="background: var(--dark-card); border-top: 1px solid var(--border);">
+  <div class="section-label">最新资讯</div>
+  <h2>Solana 生态动态</h2>
+  <p class="section-sub">每日精选 Solana 最重要的项目进展和市场新闻。</p>
+  <div class="news-grid">
+    <div class="news-card">
+      <span class="news-tag">生态更新</span>
+      <div class="news-title">Solana Alpenglow 提案：延迟将从 13 秒压缩至 0.1 秒</div>
+      <div class="news-meta">2025年3月 · Solana Foundation</div>
+    </div>
+    <div class="news-card">
+      <span class="news-tag">DeFi</span>
+      <div class="news-title">Jupiter DEX 月度交易量突破 300 亿美元，成为链上最大 DEX</div>
+      <div class="news-meta">2025年3月 · Jupiter</div>
+    </div>
+    <div class="news-card">
+      <span class="news-tag">机构入场</span>
+      <div class="news-title">多家资管机构提交 Solana ETF 申请，中国投资者关注度显著上升</div>
+      <div class="news-meta">2025年3月 · CoinDesk</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMMUNITY CTA ===== -->
+<section class="community-section" id="community">
+  <div class="section-label" style="justify-content: center; display: block; text-align: center;">加入社区</div>
+  <h2>和 10,000+ 中文 Solana 用户一起</h2>
+  <p>在 Discord 社群提问，在论坛分享心得，参与每周线上活动，和最活跃的华人 Solana 社区共同成长。</p>
+  <div class="community-links">
+    <a href="#" class="community-btn">💬 加入 Discord</a>
+    <a href="#" class="community-btn">📱 微信社群</a>
+    <a href="#" class="community-btn">🐦 关注 Twitter</a>
+    <a href="#" class="community-btn">📧 订阅周报</a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">BuySolanas</div>
+      <p class="footer-desc">中文 Solana 教育与信息平台。<br>帮助华人用户从零理解、安全参与 Solana 生态。</p>
+    </div>
+    <div>
+      <div class="footer-col-title">学习</div>
+      <ul class="footer-links">
+        <li><a href="#">入门课程</a></li>
+        <li><a href="#">进阶课程</a></li>
+        <li><a href="#">词汇表</a></li>
+        <li><a href="#">教程文章</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">生态</div>
+      <ul class="footer-links">
+        <li><a href="#">SOL 行情</a></li>
+        <li><a href="#">DeFi 导航</a></li>
+        <li><a href="#">NFT 市场</a></li>
+        <li><a href="#">钱包指南</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">关于</div>
+      <ul class="footer-links">
+        <li><a href="#">关于我们</a></li>
+        <li><a href="#">合作联系</a></li>
+        <li><a href="#">免责声明</a></li>
+        <li><a href="#">隐私政策</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 BuySolanas.com · 仅供教育目的，不构成投资建议</span>
+    <div class="lang-switch">
+      <button class="lang-btn active">中文</button>
+      <button class="lang-btn">EN</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Simulate live price updates
+  let basePrice = 142.50;
+  function updatePrice() {
+    let change = (Math.random() - 0.48) * 0.8;
+    basePrice = Math.max(130, Math.min(160, basePrice + change));
+    let changePct = ((basePrice - 138.0) / 138.0 * 100).toFixed(2);
+    let isUp = changePct > 0;
+    document.getElementById('sol-price').textContent = '$' + basePrice.toFixed(2);
+    let changeEl = document.getElementById('sol-change');
+    changeEl.textContent = (isUp ? '▲ ' : '▼ ') + Math.abs(changePct) + '%';
+    changeEl.className = isUp ? 'ticker-change-up' : 'ticker-change-down';
+  }
+  setInterval(updatePrice, 3000);
+</script>
+</body>
+</html>
