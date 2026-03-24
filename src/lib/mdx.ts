@@ -19,7 +19,8 @@ export type ContentMeta = {
 
 export type ContentItem = {
   meta: ContentMeta;
-  content: string;
+  content: string; // raw markdown
+  html: string; // pre-rendered HTML
 };
 
 export type TocItem = {
@@ -30,7 +31,8 @@ export type TocItem = {
 
 type ManifestEntry = {
   meta: ContentMeta;
-  content: string;
+  content: string; // raw markdown (for TOC extraction)
+  html: string; // pre-rendered HTML (for display)
 };
 
 type ManifestType = Record<string, Record<string, ManifestEntry>>;
@@ -52,6 +54,7 @@ export function getContentItem(
   return {
     meta: entry.meta,
     content: entry.content,
+    html: entry.html ?? '',
   };
 }
 

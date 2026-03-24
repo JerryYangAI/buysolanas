@@ -120,7 +120,7 @@ export default async function CourseStepPage({ params }: Props) {
             )}
           </header>
 
-          <MdxContent source={item.content} />
+          <MdxContent source={item.content} html={item.html} />
 
           {/* Next lesson link */}
           {nextItem && (

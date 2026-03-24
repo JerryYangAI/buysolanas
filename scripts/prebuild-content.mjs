@@ -1,14 +1,17 @@
 /**
  * Pre-build script: Compiles all MDX content into a single JSON manifest.
- * This runs at build time (Node.js) so we can use fs.
- * The output JSON is imported at runtime (Edge/Cloudflare) without needing fs.
- *
- * Output: src/lib/content-manifest.json
+ * - Parses frontmatter with gray-matter
+ * - Converts Markdown body to HTML with remark (no runtime MDX compilation needed)
+ * - Output: src/lib/content-manifest.json
  */
 
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkGfm from 'remark-gfm';
+import remarkHtml from 'remark-html';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -18,6 +21,12 @@ const outputPath = path.join(rootDir, 'src', 'lib', 'content-manifest.json');
 
 const contentTypes = ['course', 'glossary'];
 const locales = ['en', 'zh-CN'];
+
+// Create remark processor
+const processor = unified()
+  .use(remarkParse)
+  .use(remarkGfm)
+  .use(remarkHtml, { sanitize: false });
 
 const manifest = {};
 
@@ -37,6 +46,22 @@ for (const type of contentTypes) {
       const raw = fs.readFileSync(path.join(dir, file), 'utf-8');
       const { data, content } = matter(raw);
 
+      // Strip JSX components (e.g. <Quiz .../>) — they can't be rendered as HTML
+      // Keep the component name as a placeholder
+      const cleanContent = content
+        .replace(/<Quiz\s+[^>]*\/>/g, '') // Remove self-closing Quiz tags
+        .replace(/<Quiz[^>]*>[\s\S]*?<\/Quiz>/g, ''); // Remove Quiz blocks
+
+      // Convert markdown to HTML at build time
+      let html = '';
+      try {
+        const result = await processor.process(cleanContent);
+        html = String(result);
+      } catch (e) {
+        console.warn(`  ⚠ Failed to compile ${type}/${locale}/${slug}: ${e.message}`);
+        html = `<p>${cleanContent.replace(/</g, '&lt;')}</p>`;
+      }
+
       manifest[type][locale][slug] = {
         meta: {
           slug,
@@ -47,7 +72,8 @@ for (const type of contentTypes) {
           category: data.category ?? undefined,
           related: data.related ?? undefined,
         },
-        content,
+        content: cleanContent, // raw markdown (for TOC extraction)
+        html, // pre-rendered HTML (for display)
       };
     }
   }
@@ -64,5 +90,6 @@ for (const type of contentTypes) {
 }
 
 fs.writeFileSync(outputPath, JSON.stringify(manifest));
-console.log(`\n✅ Content manifest written to src/lib/content-manifest.json`);
+const sizeMB = (fs.statSync(outputPath).size / 1024 / 1024).toFixed(1);
+console.log(`\n✅ Content manifest written (${sizeMB} MB)`);
 console.log(`   Total: ${totalFiles} content items`);

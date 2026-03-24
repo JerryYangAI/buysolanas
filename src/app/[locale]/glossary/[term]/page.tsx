@@ -107,7 +107,7 @@ export default async function GlossaryTermPage({ params }: Props) {
             )}
           </header>
 
-          <MdxContent source={item.content} />
+          <MdxContent source={item.content} html={item.html} />
 
           {/* Related terms */}
           {item.meta.related && item.meta.related.length > 0 && (
