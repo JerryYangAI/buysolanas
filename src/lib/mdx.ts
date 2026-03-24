@@ -2,7 +2,37 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-const contentDir = path.join(process.cwd(), 'content');
+// Try multiple possible content directories for compatibility with
+// different deployment environments (local dev, Vercel, Cloudflare Workers)
+function findContentDir(): string {
+  const candidates = [
+    path.join(process.cwd(), 'content'),
+    path.join(__dirname, '..', '..', 'content'),
+    path.join(__dirname, '..', 'content'),
+    '/content',
+  ];
+
+  for (const dir of candidates) {
+    try {
+      if (fs.existsSync(dir)) {
+        return dir;
+      }
+    } catch {
+      // continue to next candidate
+    }
+  }
+
+  // Default fallback
+  return path.join(process.cwd(), 'content');
+}
+
+let _contentDir: string | null = null;
+function getContentDir(): string {
+  if (!_contentDir) {
+    _contentDir = findContentDir();
+  }
+  return _contentDir;
+}
 
 export type ContentMeta = {
   slug: string;
@@ -30,11 +60,15 @@ function getContentPath(
   locale: string,
   slug: string
 ): string {
-  return path.join(contentDir, type, locale, `${slug}.mdx`);
+  return path.join(getContentDir(), type, locale, `${slug}.mdx`);
 }
 
 function contentExists(filePath: string): boolean {
-  return fs.existsSync(filePath);
+  try {
+    return fs.existsSync(filePath);
+  } catch {
+    return false;
+  }
 }
 
 export function getContentItem(
@@ -42,44 +76,57 @@ export function getContentItem(
   locale: string,
   slug: string
 ): ContentItem | null {
-  let filePath = getContentPath(type, locale, slug);
+  try {
+    let filePath = getContentPath(type, locale, slug);
 
-  // Fallback to English if locale file doesn't exist
-  if (!contentExists(filePath)) {
-    filePath = getContentPath(type, 'en', slug);
+    // Fallback to English if locale file doesn't exist
     if (!contentExists(filePath)) {
-      return null;
+      filePath = getContentPath(type, 'en', slug);
+      if (!contentExists(filePath)) {
+        return null;
+      }
     }
+
+    const raw = fs.readFileSync(filePath, 'utf-8');
+    const { data, content } = matter(raw);
+
+    return {
+      meta: {
+        slug,
+        title: data.title ?? slug,
+        description: data.description ?? '',
+        order: data.order,
+        next: data.next,
+        category: data.category,
+        related: data.related,
+      },
+      content,
+    };
+  } catch (error) {
+    console.error(`[mdx] Error reading ${type}/${locale}/${slug}:`, error);
+    return null;
   }
-
-  const raw = fs.readFileSync(filePath, 'utf-8');
-  const { data, content } = matter(raw);
-
-  return {
-    meta: {
-      slug,
-      title: data.title ?? slug,
-      description: data.description ?? '',
-      order: data.order,
-      next: data.next,
-      category: data.category,
-      related: data.related,
-    },
-    content,
-  };
 }
 
 export function getAllSlugs(
   type: 'course' | 'glossary',
   locale: string
 ): string[] {
-  const dir = path.join(contentDir, type, locale);
-  if (!fs.existsSync(dir)) return [];
+  try {
+    const dir = path.join(getContentDir(), type, locale);
+    if (!fs.existsSync(dir)) {
+      console.warn(`[mdx] Directory not found: ${dir}`);
+      return [];
+    }
 
-  return fs
-    .readdirSync(dir)
-    .filter((f) => f.endsWith('.mdx'))
-    .map((f) => f.replace(/\.mdx$/, ''));
+    return fs
+      .readdirSync(dir)
+      .filter((f) => f.endsWith('.mdx'))
+      .map((f) => f.replace(/\.mdx$/, ''));
+  } catch (error) {
+    console.error(`[mdx] Error listing ${type}/${locale}:`, error);
+    return [];
+  }
 }
 
 export function getAllContentMeta(
