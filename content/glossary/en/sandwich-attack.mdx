@@ -1,0 +1,19 @@
+---
+title: "Sandwich Attack"
+description: "An MEV attack where a bot places trades before and after a victim's transaction to profit from the price movement it causes."
+category: "security"
+order: 147
+related: ["mev", "front-running", "slippage"]
+---
+
+## Sandwich Attack
+
+A **sandwich attack** is a form of MEV extraction where an attacker places one transaction before and one after a victim's pending swap. The attacker buys before the victim (front-run), causing the price to rise, and sells after (back-run), profiting from the victim's forced worse execution price.
+
+### How It Works
+
+A bot detects a pending swap in the mempool and calculates the price impact. It places a buy order just before the victim's transaction (driving the price up), lets the victim's order execute at the now-higher price, then sells immediately after at the elevated price. The victim gets fewer tokens than expected, and the attacker pockets the difference.
+
+### Why It Matters
+
+Sandwich attacks are a persistent problem that extracts value from regular DeFi users. Using tight slippage settings, private transaction submission, and MEV-protected RPC endpoints can reduce exposure. On Solana, the fast block times make sandwiching harder but not impossible.

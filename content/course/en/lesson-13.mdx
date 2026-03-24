@@ -1,0 +1,77 @@
+---
+title: "Liquidity Provision & Impermanent Loss"
+description: "Understand how liquidity provision works, how to calculate impermanent loss, and strategies to manage LP risk on Solana DEXs."
+order: 13
+level: 3
+category: "advanced"
+next: "lesson-14"
+---
+
+## Liquidity Provision & Impermanent Loss
+
+Providing liquidity is one of the primary ways to earn yield in DeFi. However, it comes with a unique risk called impermanent loss (IL). Understanding this concept deeply is essential before committing significant capital to liquidity pools.
+
+### How Liquidity Provision Works
+
+When you provide liquidity to a pool (e.g., SOL/USDC on Raydium or Orca), you deposit both tokens in a specific ratio. Traders who swap between these tokens pay a fee, and you earn a share of those fees proportional to your pool share.
+
+**Concentrated Liquidity (CLMM):** Modern DEXs like Orca and Meteora use concentrated liquidity, where you choose a specific price range for your liquidity. This can dramatically increase fee earnings if the price stays within your range — but you earn nothing when the price moves outside it.
+
+For example, if SOL is trading at $150, you might provide liquidity in the $130-$170 range. Swaps within this range generate fees for you, but if SOL moves to $180, your position is entirely converted to USDC and earns no fees until the price returns.
+
+### Understanding Impermanent Loss
+
+Impermanent loss occurs because the pool automatically rebalances your token ratio as prices change. If SOL doubles in price while you hold a SOL/USDC LP position, the pool sells some of your SOL for USDC to maintain balance. You end up with less SOL than if you had simply held it.
+
+**Simplified IL calculation:**
+
+| SOL Price Change | Impermanent Loss |
+|-----------------|------------------|
+| +25% | -0.6% |
+| +50% | -2.0% |
+| +100% (2x) | -5.7% |
+| +200% (3x) | -13.4% |
+| +400% (5x) | -25.5% |
+
+The loss is "impermanent" because if the price returns to its original level, the loss disappears. It becomes permanent only when you withdraw your liquidity while prices have diverged.
+
+### Strategies to Manage Impermanent Loss
+
+**1. Choose correlated pairs:** Providing liquidity for pairs that move together (e.g., mSOL/SOL or USDC/USDT) significantly reduces IL since prices rarely diverge much.
+
+**2. Focus on high-fee pools:** If a pool generates enough trading fees, the earnings can outweigh the impermanent loss. Volatile pairs like SOL/USDC often have high volume and fee generation.
+
+**3. Use tight ranges wisely:** Concentrated liquidity in a narrow range earns more fees but requires active management. If you cannot monitor daily, use a wider range.
+
+**4. Automated vaults:** Protocols like Kamino and Hawksight auto-rebalance your positions, keeping your liquidity in the active range without manual intervention.
+
+**5. Calculate break-even:** Before entering a position, estimate the expected fees versus potential IL. Tools like the Meteora or Orca position calculators help with this.
+
+### When LP Provision Makes Sense
+
+- You believe the token pair will trade within a range (sideways market).
+- The pool generates high trading volume relative to its liquidity.
+- You are comfortable actively managing your position.
+- The fee APR significantly exceeds potential IL.
+
+### When to Avoid LP Provision
+
+- You are extremely bullish on one token — holding outperforms LP in a strong uptrend.
+- The pool has very low volume relative to liquidity (low fee generation).
+- You cannot monitor or adjust your position regularly.
+- You do not fully understand the risks involved.
+
+### Tracking Your LP Performance
+
+Use these tools to monitor your positions:
+
+- **Orca analytics** — shows your position performance, fees earned, and current range.
+- **Step Finance** — aggregates all your DeFi positions in one dashboard.
+- **Manual tracking** — record your entry amounts and compare against simply holding.
+
+<Quiz
+  question="When does impermanent loss become permanent?"
+  options='["As soon as you deposit into the pool", "When the price changes by any amount", "When you withdraw your liquidity while token prices have diverged from your entry", "After 30 days in the pool"]'
+  correctIndex={2}
+  explanation="Impermanent loss only becomes realized (permanent) when you withdraw your liquidity at a time when token prices differ from when you deposited. If prices return to original levels, the loss disappears."
+/>

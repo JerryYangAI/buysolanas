@@ -1,0 +1,19 @@
+---
+title: "Hash"
+description: "A fixed-length string produced by a cryptographic function that uniquely represents input data, used for verification and security."
+category: "blockchain"
+order: 173
+related: ["merkle-tree", "proof-of-work", "consensus-mechanism"]
+---
+
+## Hash
+
+A **hash** is a fixed-length alphanumeric string produced by running data through a cryptographic hash function. The same input always produces the same hash, but even a tiny change in input produces a completely different hash, making it useful for data verification and security.
+
+### How It Works
+
+Hash functions like SHA-256 take any input data and produce a fixed-size output. They are one-way functions — you cannot reverse a hash to find the original data. Blockchains use hashes extensively: to link blocks together, create transaction IDs, generate wallet addresses, and verify data integrity.
+
+### Why It Matters
+
+Hashing is fundamental to blockchain security and integrity. It ensures that any tampering with historical data is immediately detectable, as even the smallest change would produce an entirely different hash. Transaction hashes serve as unique identifiers that let users track and verify their transactions on explorers like Solscan.

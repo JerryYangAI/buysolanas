@@ -1,0 +1,79 @@
+---
+title: "SOL Staking Guide"
+description: "Learn how to stake SOL to earn passive income through native staking and liquid staking protocols like Marinade and Jito."
+order: 9
+level: 2
+category: "intermediate"
+next: "lesson-10"
+---
+
+## SOL Staking Guide
+
+Staking is one of the simplest ways to earn passive income with your SOL. By staking, you help secure the Solana network and receive rewards in return — typically around 6-8% annual yield. There are two main approaches: native staking and liquid staking.
+
+### What Is Staking?
+
+Solana uses a Proof of Stake consensus mechanism. Validators run powerful computers to verify transactions and produce blocks. When you stake your SOL with a validator, you are delegating your tokens to support their operations. In return, you receive a share of the rewards the validator earns.
+
+### Native Staking
+
+Native staking means delegating your SOL directly to a validator through your wallet. Here is how to do it in Phantom:
+
+1. Open your Phantom wallet and click on your SOL balance.
+2. Select "Start earning SOL" or navigate to the staking section.
+3. Browse the list of validators and choose one.
+4. Enter the amount of SOL you want to stake.
+5. Confirm the transaction.
+
+**Key details about native staking:**
+- Rewards are distributed every epoch (approximately every 2-3 days).
+- **Unstaking takes 2-3 days** — your SOL is locked during the cooldown period.
+- You maintain full custody of your tokens; the validator cannot access them.
+- There is no minimum staking amount (though very small amounts may not be practical).
+
+### Liquid Staking
+
+Liquid staking solves the lockup problem. When you liquid stake, you receive a derivative token that represents your staked position. This token can be used in DeFi while your original SOL continues earning staking rewards.
+
+**Marinade Finance (mSOL):**
+- Deposit SOL and receive mSOL in return.
+- mSOL increases in value relative to SOL over time as staking rewards accrue.
+- Use mSOL in DeFi protocols for additional yield.
+- Marinade automatically distributes your stake across many validators, improving decentralization.
+
+**Jito (JitoSOL):**
+- Similar to Marinade but includes MEV (Maximal Extractable Value) rewards.
+- MEV rewards come from the additional value validators capture from transaction ordering.
+- JitoSOL historically offers slightly higher yields than standard staking.
+
+### Comparing Staking Options
+
+| Feature | Native Staking | Marinade (mSOL) | Jito (JitoSOL) |
+|---------|---------------|-----------------|-----------------|
+| Approximate APY | 6-7% | 7-8% | 7-8.5% |
+| Unstaking time | 2-3 days | Instant (via DEX) | Instant (via DEX) |
+| DeFi composability | No | Yes | Yes |
+| Validator choice | Manual | Automatic | Automatic |
+
+### How to Choose a Validator (Native Staking)
+
+If you choose native staking, selecting a good validator matters:
+
+- **Commission rate** — lower is better for you (most charge 0-10%).
+- **Uptime** — look for validators with 99%+ uptime.
+- **Stake concentration** — consider staking with smaller validators to support network decentralization.
+- **Track record** — check how long the validator has been operating.
+
+### Risks and Considerations
+
+- **Slashing** — Solana currently does not have slashing enabled, but it may be introduced in the future. Slashing penalizes validators (and their delegators) for misbehavior.
+- **Validator risk** — a poorly performing validator may earn fewer rewards.
+- **Smart contract risk** — liquid staking protocols carry additional smart contract risk.
+- **Price risk** — staking rewards do not protect against SOL price decreases.
+
+<Quiz
+  question="What advantage does liquid staking offer over native staking?"
+  options='["Higher guaranteed returns", "No smart contract risk", "You can use the staked token in DeFi while still earning rewards", "It requires no transaction fees"]'
+  correctIndex={2}
+  explanation="Liquid staking gives you a derivative token (like mSOL or JitoSOL) that can be used in DeFi protocols, letting you earn additional yield on top of staking rewards."
+/>

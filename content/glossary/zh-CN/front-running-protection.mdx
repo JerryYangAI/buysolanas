@@ -1,0 +1,19 @@
+---
+title: "抢跑保护（Front-Running Protection）"
+description: "保护交易不被 MEV 机器人在确认前检测和利用的工具和技术。"
+category: "security"
+order: 149
+related: ["front-running", "mev", "sandwich-attack"]
+---
+
+## 抢跑保护（Front-Running Protection）
+
+**抢跑保护** 包括旨在防止 MEV 机器人在用户交易最终确认前检测和利用的工具和技术。这些保护帮助用户获得公平的执行价格。
+
+### 工作原理
+
+保护方法包括私密交易提交（绕过公共内存池）、跨池分散交易的 MEV 感知路由、时间加权执行和承诺-揭示方案。在 Solana 上，Jito 捆绑包和私有 RPC 端点允许交易直接提交给验证者而无需公开可见。
+
+### 为什么重要
+
+没有抢跑保护，DEX 上的大额交换可能被三明治攻击，使用户损失大量价值。使用受保护的 RPC 端点、适当的滑点设置和 Jupiter 等 MEV 感知 DEX 聚合器可以显著减少在 Solana 上因 MEV 提取而损失的价值。

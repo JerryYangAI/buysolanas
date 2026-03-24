@@ -1,0 +1,19 @@
+---
+title: "Mempool"
+description: "A waiting area for unconfirmed transactions before they are included in a block by validators or miners."
+category: "blockchain"
+order: 171
+related: ["transaction-fee", "front-running", "mev"]
+---
+
+## Mempool
+
+The **mempool** (memory pool) is a holding area where unconfirmed transactions wait before being selected by validators or miners for inclusion in the next block. It acts as a queue for pending transactions.
+
+### How It Works
+
+When you submit a transaction, it first enters the mempool. Validators select transactions from the mempool to include in blocks, typically prioritizing those with higher fees. On Ethereum, the public mempool enables MEV extraction since pending transactions are visible. Solana's architecture differs — it uses a leader schedule and Gulf Stream to forward transactions directly to validators, reducing traditional mempool dynamics.
+
+### Why It Matters
+
+The mempool is where front-running and sandwich attacks originate on many blockchains. Solana's design minimizes this risk by forwarding transactions to upcoming leaders rather than broadcasting them publicly, though MEV extraction still occurs through other mechanisms.

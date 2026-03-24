@@ -1,0 +1,65 @@
+---
+title: "How to Use Jupiter DEX"
+description: "Learn how to swap tokens, set limit orders, and automate purchases with Dollar-Cost Averaging on Jupiter, Solana's leading DEX aggregator."
+order: 7
+level: 2
+category: "intermediate"
+next: "lesson-8"
+---
+
+## How to Use Jupiter DEX
+
+Jupiter is the most popular decentralized exchange (DEX) aggregator on Solana. Instead of checking prices across dozens of liquidity pools manually, Jupiter finds the best route for your trade automatically. Think of it as a search engine for token swaps.
+
+### Getting Started
+
+To use Jupiter, visit **jup.ag** and connect your Solana wallet (Phantom, Solflare, or Backpack). Once connected, you will see the swap interface — select the token you want to sell at the top and the token you want to buy at the bottom.
+
+Jupiter compares prices across multiple DEXs including Raydium, Orca, and Meteora, then splits your trade across sources if that gives you a better price. This process is called **route optimization**.
+
+### Performing a Swap
+
+1. Select your input token (e.g., SOL) and output token (e.g., USDC).
+2. Enter the amount you want to swap.
+3. Review the exchange rate, price impact, and minimum received.
+4. Click "Swap" and approve the transaction in your wallet.
+
+**Price impact** tells you how much your trade will move the market price. For large trades, high price impact means you are getting a worse deal. If price impact exceeds 1%, consider splitting your trade into smaller amounts.
+
+### Limit Orders
+
+Unlike instant swaps, limit orders let you set a target price. Your order executes only when the market reaches your specified price — similar to limit orders on traditional exchanges.
+
+- Set your desired price per token.
+- Choose an expiration time (or leave it open-ended).
+- Your SOL stays in your wallet until the order fills.
+
+This is especially useful when you believe a token will dip in price and want to buy at a lower level without watching charts all day.
+
+### Dollar-Cost Averaging (DCA)
+
+Jupiter's DCA feature lets you spread a purchase over time. Instead of buying $500 of SOL at once, you can set up automatic purchases of $50 every day for 10 days. This smooths out price volatility and reduces the risk of buying at a local peak.
+
+To set up DCA:
+1. Choose your input token and output token.
+2. Set the total amount and frequency (daily, weekly, or custom).
+3. Confirm the schedule and approve the transaction.
+
+### Fees and Settings
+
+Jupiter charges **no platform fee** on basic swaps — you only pay the standard Solana network fee (less than $0.01). For limit orders and DCA, a small convenience fee may apply.
+
+Adjust **slippage tolerance** in settings. Slippage is the difference between the expected price and the price you actually receive. A setting of 0.5% to 1% works well for most trades. For volatile tokens, you may need higher slippage.
+
+### Safety Tips
+
+- Always verify the token contract address before swapping unfamiliar tokens.
+- Use Jupiter's built-in token verification badges — verified tokens display a checkmark.
+- Start with a small test transaction before committing larger amounts.
+
+<Quiz
+  question="What does Jupiter's route optimization do?"
+  options='["It creates new tokens", "It finds the best price across multiple DEXs", "It stakes your SOL automatically", "It locks your tokens for 30 days"]'
+  correctIndex={1}
+  explanation="Jupiter aggregates prices from multiple decentralized exchanges and routes your trade through the path that gives you the best overall price."
+/>

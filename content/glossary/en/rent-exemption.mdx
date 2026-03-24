@@ -1,0 +1,19 @@
+---
+title: "Rent Exemption"
+description: "A Solana mechanism requiring accounts to hold a minimum SOL balance to remain on-chain permanently without paying ongoing rent."
+category: "solana"
+order: 72
+related: ["solana", "account-model", "sol-token"]
+---
+
+## Rent Exemption
+
+**Rent exemption** is a Solana mechanism that requires accounts to maintain a minimum SOL balance based on their data size. Accounts that meet this threshold are considered "rent-exempt" and can exist on-chain indefinitely without being garbage collected.
+
+### How It Works
+
+Storing data on Solana costs resources. To prevent spam and reclaim unused storage, Solana charges rent on accounts. However, if an account holds enough SOL to cover two years of rent, it becomes rent-exempt and is never charged. In practice, all accounts created today are required to be rent-exempt, and the deposit is refundable when the account is closed.
+
+### Why It Matters
+
+Understanding rent exemption is important for both developers and users. Developers must ensure their programs allocate enough SOL for account creation, and users should know that small SOL amounts are locked in their token accounts. These deposits are recoverable by closing unused accounts.

@@ -1,0 +1,19 @@
+---
+title: "账户模型（Account Model）"
+description: "Solana 的数据存储架构，所有状态都存储在由程序拥有并持有数据和 SOL 的账户中。"
+category: "solana"
+order: 71
+related: ["solana", "program-derived-address", "rent-exemption"]
+---
+
+## 账户模型（Account Model）
+
+Solana 使用**账户模型**来存储所有链上数据。Solana 上的每一项状态——代币余额、NFT 元数据、程序数据——都存储在账户中。每个账户有一个所有者程序、SOL 余额和可选的数据字段。
+
+### 工作原理
+
+Solana 上的账户就像文件系统中的文件。它们有地址（公钥）、所有者（有权修改它们的程序）、lamport 余额（SOL）和数据缓冲区。程序不能在内部存储状态；相反，它们读写传入交易的独立账户。这种代码和数据的分离是 Solana 独有的。
+
+### 为什么重要
+
+账户模型支持 Solana 的并行交易处理。由于程序预先声明将访问哪些账户，运行时可以识别不重叠的交易并同时执行它们，从而实现高吞吐量。

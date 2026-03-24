@@ -1,0 +1,19 @@
+---
+title: "Concentrated Liquidity"
+description: "An AMM model where liquidity providers allocate capital within specific price ranges for higher capital efficiency."
+category: "trading"
+order: 126
+related: ["amm", "orca", "liquidity-pool"]
+---
+
+## Concentrated Liquidity
+
+**Concentrated liquidity** is an advanced AMM model that allows liquidity providers to allocate their capital within a specific price range rather than across the entire price spectrum. This dramatically increases capital efficiency and fee earnings within that range.
+
+### How It Works
+
+Instead of spreading liquidity from zero to infinity, LPs choose a price range where they expect most trading to occur. Their capital is concentrated in this range, providing much deeper liquidity for traders. If the price moves outside the chosen range, the position stops earning fees. LPs can create multiple positions at different ranges.
+
+### Why It Matters
+
+Concentrated liquidity can provide 10-100x more capital efficiency compared to traditional full-range AMMs. On Solana, Orca's Whirlpools use this model. It benefits traders through lower slippage and tighter spreads, while active LPs can earn significantly higher returns on their capital.

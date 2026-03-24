@@ -1,0 +1,19 @@
+---
+title: "Market Order"
+description: "An order to buy or sell immediately at the best available current price, guaranteeing execution but not price."
+category: "trading"
+order: 122
+related: ["limit-order", "slippage", "spot-trading"]
+---
+
+## Market Order
+
+A **market order** is an instruction to buy or sell a token immediately at the best available price. Unlike limit orders, market orders guarantee execution but not the exact price you will receive.
+
+### How It Works
+
+When you place a market order, it is filled instantly against the available liquidity in the order book or AMM pool. For a buy order, you receive tokens at the current ask price; for a sell, at the current bid price. Large market orders can experience slippage, where the actual execution price differs from the expected price due to insufficient liquidity at any single price level.
+
+### Why It Matters
+
+Market orders are the simplest way to trade — you click buy or sell and the transaction happens immediately. They are ideal when speed of execution matters more than getting an exact price. Most casual swaps on Solana DEXs are effectively market orders, though platforms like Jupiter optimize routing to minimize slippage.

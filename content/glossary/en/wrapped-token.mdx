@@ -1,0 +1,19 @@
+---
+title: "Wrapped Token"
+description: "A token on one blockchain that represents an asset from another blockchain, enabling cross-chain asset usage."
+category: "defi"
+order: 94
+related: ["bridge", "cross-chain", "token"]
+---
+
+## Wrapped Token
+
+A **wrapped token** is a token on one blockchain that represents an equivalent asset from another blockchain. For example, Wrapped ETH (wETH) on Solana represents Ethereum that has been locked on the Ethereum chain and minted as a Solana SPL token.
+
+### How It Works
+
+Wrapping involves locking the original asset in a smart contract on its native chain and minting an equivalent token on the destination chain. A bridge protocol manages this process, ensuring that each wrapped token is backed 1:1 by the locked original. When users want to unwrap, the wrapped tokens are burned and the originals are released.
+
+### Why It Matters
+
+Wrapped tokens enable cross-chain liquidity and DeFi participation. They allow assets like BTC and ETH to be used in Solana's DeFi ecosystem for trading, lending, and yield farming without leaving the Solana network. However, they carry bridge risk — if the bridge is compromised, wrapped tokens could lose their backing.

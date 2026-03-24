@@ -1,0 +1,19 @@
+---
+title: "Order Book"
+description: "A list of buy and sell orders for a token organized by price, showing the depth of market supply and demand."
+category: "defi"
+order: 98
+related: ["market-maker", "dex", "limit-order"]
+---
+
+## Order Book
+
+An **order book** is a real-time list of all outstanding buy (bid) and sell (ask) orders for a trading pair, organized by price level. It shows the depth of supply and demand at each price point, helping traders understand market conditions.
+
+### How It Works
+
+Buy orders are listed from highest to lowest price, and sell orders from lowest to highest. The gap between the highest bid and lowest ask is called the spread. When a buy order matches a sell order at the same price, a trade executes. On Solana, protocols like Phoenix and OpenBook maintain fully on-chain order books with real-time matching.
+
+### Why It Matters
+
+Order books provide price discovery and transparency. They allow traders to see exactly where liquidity sits and place precise orders. On-chain order books on Solana combine the transparency of blockchain with the efficiency of traditional exchange matching, offering an alternative to AMM-based DEXs.

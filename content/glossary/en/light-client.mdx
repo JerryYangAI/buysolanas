@@ -1,0 +1,19 @@
+---
+title: "Light Client"
+description: "A lightweight blockchain client that verifies transactions without downloading the entire chain, suitable for mobile devices."
+category: "blockchain"
+order: 170
+related: ["full-node", "node", "decentralization"]
+---
+
+## Light Client
+
+A **light client** is a simplified blockchain client that can verify transactions and query blockchain state without downloading and storing the complete blockchain history. It relies on cryptographic proofs from full nodes to validate data.
+
+### How It Works
+
+Light clients download only block headers (summaries) rather than full blocks. When they need to verify a specific transaction or account state, they request Merkle proofs from full nodes. These proofs mathematically prove the data is authentic without requiring the light client to have all the data. This makes them practical for mobile devices and browsers.
+
+### Why It Matters
+
+Light clients make blockchain verification accessible on resource-constrained devices. They enable mobile wallets and browser applications to verify transactions without trusting a centralized server, maintaining decentralization benefits while being practical for everyday use.

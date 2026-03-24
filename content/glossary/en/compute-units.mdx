@@ -1,0 +1,19 @@
+---
+title: "Compute Units"
+description: "A measure of computational resources consumed by a transaction on Solana, similar to gas on Ethereum but with a fixed budget per transaction."
+category: "solana"
+order: 73
+related: ["solana", "priority-fee", "transaction-fee"]
+---
+
+## Compute Units
+
+**Compute units** (CUs) are Solana's measure of the computational resources a transaction consumes. Every operation in a Solana transaction — math, account reads, cross-program invocations — costs a certain number of compute units, with a default limit of 200,000 CUs per instruction.
+
+### How It Works
+
+Each transaction has a compute unit budget. If a transaction exceeds its budget, it fails. Developers can request up to 1.4 million compute units per transaction but should request only what they need, as unused units still count toward block limits. The base cost of compute units is very low, but users can add priority fees per compute unit to get faster inclusion.
+
+### Why It Matters
+
+Understanding compute units helps users and developers optimize transactions. Requesting fewer compute units makes transactions cheaper and more likely to be included in blocks. During network congestion, efficiently managing compute units becomes critical for transaction success.

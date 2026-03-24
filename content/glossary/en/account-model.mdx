@@ -1,0 +1,19 @@
+---
+title: "Account Model"
+description: "Solana's data storage architecture where all state is stored in accounts, which are owned by programs and hold data and SOL."
+category: "solana"
+order: 71
+related: ["solana", "program-derived-address", "rent-exemption"]
+---
+
+## Account Model
+
+Solana uses an **account model** for storing all on-chain data. Every piece of state on Solana — token balances, NFT metadata, program data — is stored in accounts. Each account has an owner program, a balance in SOL, and an optional data field.
+
+### How It Works
+
+Accounts on Solana are like files in a filesystem. They have an address (public key), an owner (the program authorized to modify them), a lamport balance (SOL), and a data buffer. Programs cannot store state internally; instead, they read and write to separate accounts passed into transactions. This separation of code and data is unique to Solana.
+
+### Why It Matters
+
+The account model enables Solana's parallel transaction processing. Because programs declare which accounts they will access upfront, the runtime can identify non-overlapping transactions and execute them simultaneously, leading to high throughput.

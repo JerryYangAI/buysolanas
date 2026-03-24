@@ -1,0 +1,19 @@
+---
+title: "Front-Running Protection"
+description: "Tools and techniques that shield transactions from being detected and exploited by MEV bots before they are confirmed."
+category: "security"
+order: 149
+related: ["front-running", "mev", "sandwich-attack"]
+---
+
+## Front-Running Protection
+
+**Front-running protection** encompasses tools and techniques designed to prevent MEV bots from detecting and exploiting user transactions before they are finalized. These protections help users get fair execution prices.
+
+### How It Works
+
+Protection methods include private transaction submission (bypassing the public mempool), MEV-aware routing that splits trades across pools, time-weighted execution, and commit-reveal schemes. On Solana, Jito bundles and private RPC endpoints allow transactions to be submitted directly to validators without public visibility.
+
+### Why It Matters
+
+Without front-running protection, large swaps on DEXs can be sandwiched, costing users significant value. Using protected RPC endpoints, appropriate slippage settings, and MEV-aware DEX aggregators like Jupiter can significantly reduce the value lost to MEV extraction on Solana.

@@ -1,0 +1,19 @@
+---
+title: "Front-Running"
+description: "The practice of placing a transaction ahead of a known pending transaction to profit from the anticipated price impact."
+category: "defi"
+order: 100
+related: ["mev", "sandwich-attack", "slippage"]
+---
+
+## Front-Running
+
+**Front-running** is a practice where a trader or bot detects a pending transaction in the mempool and places their own transaction ahead of it to profit from the expected price movement. It is a form of MEV (Maximal Extractable Value) extraction.
+
+### How It Works
+
+When a large buy order is visible in the mempool, a front-runner places their buy order first (with a higher gas/priority fee), causing the price to rise. The original order then executes at a worse price, and the front-runner sells at the elevated price for a profit. This is also the basis of sandwich attacks, where the victim's transaction is squeezed between a buy and a sell.
+
+### Why It Matters
+
+Front-running is considered predatory and extracts value from regular users. On Solana, the lack of a traditional mempool and the use of continuous block production make front-running harder than on Ethereum, but it is not eliminated entirely. Various protections like private transaction submission and MEV-aware routing help mitigate this issue.

@@ -1,0 +1,19 @@
+---
+title: "Sanctum（Sanctum 协议）"
+description: "Solana 协议，支持流动质押代币的即时解除质押，并统一不同 LST 提供者之间的流动性。"
+category: "solana"
+order: 58
+related: ["staking", "liquidity-pool", "defi"]
+---
+
+## Sanctum（Sanctum 协议）
+
+**Sanctum** 是 Solana 原生协议，解决了流动质押中的流动性碎片化问题。它提供统一的流动性层，允许用户在不同的流动质押代币（LST）之间即时交换，并无需等待标准冷却期即可解除 SOL 质押。
+
+### 工作原理
+
+Sanctum 维护一个 SOL 储备池，方便从任何支持的 LST 即时解除质押。它还运营一个无限池，充当多 LST AMM，以最小的滑点实现不同 LST 之间的无缝交换。这种统一方法意味着 LST 提供者不需要各自拥有深度流动性池。
+
+### 为什么重要
+
+通过统一 LST 流动性，Sanctum 使 Solana 上的流动质押更加便捷且资本高效。用户可以自由地在不同的质押提供者之间切换，新的 LST 可以无需从零开始建立流动性即可启动。

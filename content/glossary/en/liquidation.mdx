@@ -1,0 +1,19 @@
+---
+title: "Liquidation"
+description: "The automatic selling of a borrower's collateral when its value drops below the required threshold to repay a DeFi loan."
+category: "defi"
+order: 79
+related: ["collateral", "borrowing", "lending-protocol"]
+---
+
+## Liquidation
+
+**Liquidation** occurs in DeFi when a borrower's collateral value falls below the minimum required ratio. The protocol automatically sells enough collateral to repay part or all of the loan, often at a discount that rewards liquidators for maintaining system health.
+
+### How It Works
+
+Lending protocols set liquidation thresholds for each asset. When a borrower's health factor (collateral value relative to loan value) drops below 1, their position becomes eligible for liquidation. Third-party liquidator bots monitor the blockchain and execute liquidations, receiving a bonus (typically 5-10%) for their service.
+
+### Why It Matters
+
+Liquidation is the enforcement mechanism that keeps DeFi lending solvent. Without it, bad debts would accumulate and lenders could lose their deposits. Understanding liquidation risks is critical for borrowers — sudden price drops can trigger liquidation, resulting in loss of collateral plus a penalty fee.

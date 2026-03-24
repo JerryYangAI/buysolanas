@@ -1,0 +1,19 @@
+---
+title: "MEV"
+description: "Maximal Extractable Value — the profit that can be extracted by reordering, inserting, or censoring transactions within a block."
+category: "security"
+order: 148
+related: ["sandwich-attack", "front-running", "jito"]
+---
+
+## MEV (Maximal Extractable Value)
+
+**MEV** stands for Maximal Extractable Value (formerly Miner Extractable Value). It represents the profit that block producers or searchers can extract by strategically ordering, inserting, or excluding transactions within a block.
+
+### How It Works
+
+MEV opportunities arise from DeFi activities like liquidations, arbitrage, and sandwich attacks. Specialized bots (searchers) monitor pending transactions and submit their own transactions strategically. On Solana, Jito provides an MEV infrastructure that allows validators and searchers to capture MEV while attempting to minimize harm to regular users through bundles and tips.
+
+### Why It Matters
+
+MEV is a fundamental property of blockchains with financial activity. While some MEV (like arbitrage) is beneficial for market efficiency, predatory MEV (like sandwich attacks) harms regular users. Understanding MEV helps users protect themselves through tools like MEV-protected RPCs and appropriate slippage settings.

@@ -1,0 +1,19 @@
+---
+title: "Compressed NFT"
+description: "A Solana innovation that uses state compression to mint NFTs at a fraction of the cost, enabling collections of millions of items."
+category: "solana"
+order: 63
+related: ["nft", "metaplex", "solana"]
+---
+
+## Compressed NFT
+
+**Compressed NFTs** (cNFTs) are a Solana innovation that uses state compression and Merkle trees to dramatically reduce the cost of minting NFTs. Instead of storing each NFT as a separate on-chain account, cNFTs store data in a compressed format using concurrent Merkle trees.
+
+### How It Works
+
+When minting compressed NFTs, the data is hashed and stored in a Merkle tree on-chain, while the full metadata is kept off-chain by indexer services. This means minting 1 million NFTs can cost as little as a few SOL instead of thousands. The NFTs are still verifiably on-chain and can be transferred and traded like regular NFTs.
+
+### Why It Matters
+
+Compressed NFTs make it economically feasible to mint NFTs at massive scale. This unlocks use cases like loyalty programs, event tickets, gaming items, and social badges where millions of NFTs need to be distributed at near-zero cost per unit.

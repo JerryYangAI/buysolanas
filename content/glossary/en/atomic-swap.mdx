@@ -1,0 +1,19 @@
+---
+title: "Atomic Swap"
+description: "A trustless exchange of tokens between two parties across different blockchains without an intermediary, using cryptographic guarantees."
+category: "defi"
+order: 97
+related: ["cross-chain", "dex", "bridge"]
+---
+
+## Atomic Swap
+
+An **atomic swap** is a cryptographic technique that enables two parties to exchange tokens directly across different blockchains without trusting each other or using an intermediary. The swap either completes fully or not at all — it is "atomic."
+
+### How It Works
+
+Atomic swaps use Hash Time-Locked Contracts (HTLCs). Both parties create time-locked transactions with the same cryptographic hash. When one party reveals the secret that matches the hash to claim their tokens, the other party can use that same secret to claim theirs. If neither party acts before the timeout, both transactions are reversed.
+
+### Why It Matters
+
+Atomic swaps represent the purest form of trustless cross-chain trading. While bridges and DEX aggregators are more commonly used today for their convenience, atomic swaps remain important as a fundamental building block for decentralized cross-chain exchange without counterparty risk.

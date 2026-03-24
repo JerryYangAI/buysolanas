@@ -1,0 +1,19 @@
+---
+title: "Merkle Tree"
+description: "A data structure that efficiently summarizes and verifies large datasets using hierarchical hashing, fundamental to blockchain verification."
+category: "blockchain"
+order: 174
+related: ["hash", "compressed-nft", "light-client"]
+---
+
+## Merkle Tree
+
+A **Merkle tree** is a hierarchical data structure where each leaf node contains a hash of data, and each parent node contains the combined hash of its children. The single hash at the top (Merkle root) summarizes all the data below it.
+
+### How It Works
+
+Data is divided into chunks, each hashed to create leaf nodes. Pairs of leaf hashes are combined and hashed again to create parent nodes, and this process repeats until a single root hash remains. To verify any piece of data, you only need the hashes along the path from that data to the root — not the entire dataset.
+
+### Why It Matters
+
+Merkle trees enable efficient data verification with minimal resources. Solana uses them for compressed NFTs (storing millions of NFTs cheaply), light client verification, and account state proofs. They are a foundational computer science concept that makes blockchain scalability practical.

@@ -1,0 +1,19 @@
+---
+title: "Range Order"
+description: "A liquidity position set within a narrow price range that acts like a limit order, converting one token to another as price moves through it."
+category: "trading"
+order: 127
+related: ["concentrated-liquidity", "limit-order", "amm"]
+---
+
+## Range Order
+
+A **range order** is a concentrated liquidity position set within a narrow price range that effectively functions as a limit order. As the price moves through the range, one token is gradually converted to the other, similar to a DCA at specific price levels.
+
+### How It Works
+
+A trader provides single-sided liquidity in a narrow range above or below the current price. As the market price enters and moves through that range, the deposited token is gradually swapped for the paired token. Once the price passes completely through the range, the position has been entirely converted. Fees are earned while the price is within the range.
+
+### Why It Matters
+
+Range orders combine the benefits of limit orders with fee earnings from providing liquidity. They are a creative use of concentrated liquidity mechanics, allowing traders to set price targets while earning swap fees during the conversion process.

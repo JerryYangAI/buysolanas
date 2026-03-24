@@ -1,0 +1,86 @@
+---
+title: "Solana Programs (Smart Contracts) Intro"
+description: "Understand Solana's unique account model, how programs work, and get introduced to the Anchor framework for building on Solana."
+order: 16
+level: 3
+category: "advanced"
+next: "lesson-17"
+---
+
+## Solana Programs (Smart Contracts) Intro
+
+On Ethereum, they are called smart contracts. On Solana, they are called **programs**. While the concept is similar — code that runs on the blockchain — Solana's architecture is fundamentally different. Understanding this architecture is valuable even if you never write code, because it helps you evaluate projects and understand how applications work under the hood.
+
+### The Account Model
+
+Solana's biggest architectural difference is its account model. On Ethereum, a smart contract stores both its code and its data together. On Solana, these are separated:
+
+- **Programs** — contain only executable code. They are stateless.
+- **Accounts** — store all data. Programs read from and write to accounts.
+
+Think of it like a restaurant: the program is the recipe (instructions), and accounts are the ingredients and plates (data). The recipe itself does not hold any food — it just describes what to do with it.
+
+**Why this matters:**
+- Programs can be reused across many different data accounts.
+- Multiple programs can read the same account data.
+- This separation enables Solana's parallel transaction processing, which is key to its speed.
+
+### Key Concepts
+
+**Program IDs:** Every program on Solana has a unique address (Program ID). When you interact with Jupiter, your wallet sends a transaction to Jupiter's Program ID with specific instructions.
+
+**Instructions:** Transactions on Solana contain one or more instructions. Each instruction specifies:
+- Which program to call.
+- Which accounts the program should read or modify.
+- What data to pass (the parameters).
+
+**Ownership:** Every account on Solana is owned by a program. Only the owning program can modify that account's data. The System Program owns regular SOL accounts, the Token Program owns token accounts, and so on.
+
+**Rent:** Accounts on Solana must maintain a minimum SOL balance to cover storage costs. This is called "rent exemption." Most applications prepay this amount so accounts persist indefinitely.
+
+### Common Solana Programs
+
+| Program | Purpose |
+|---------|---------|
+| System Program | Create accounts, transfer SOL |
+| Token Program | Create and manage SPL tokens |
+| Associated Token Account Program | Create token accounts linked to wallets |
+| Memo Program | Attach messages to transactions |
+
+These built-in programs handle the fundamental operations that all Solana applications build upon.
+
+### The Anchor Framework
+
+Anchor is the most popular framework for building Solana programs. It simplifies development by:
+
+- **Reducing boilerplate** — Anchor handles account serialization, deserialization, and validation automatically.
+- **Providing macros** — Rust macros generate common code patterns, making programs shorter and more readable.
+- **Standardizing patterns** — Anchor establishes conventions that make programs easier to audit and understand.
+
+Most DeFi protocols, NFT platforms, and dApps on Solana are built with Anchor. When you see "Anchor program" in audit reports or documentation, it means the project uses this framework.
+
+### How a Transaction Flows
+
+1. You click "Swap" on Jupiter's website.
+2. Your browser builds a transaction with instructions for Jupiter's program.
+3. The transaction specifies which accounts to use (your token accounts, the liquidity pool, etc.).
+4. Your wallet signs the transaction with your private key.
+5. The transaction is sent to a validator, which executes the program's code.
+6. The program reads and modifies the specified accounts.
+7. The validator confirms the transaction in the next block.
+
+### Why This Knowledge Matters
+
+Even as a non-developer, understanding the account model helps you:
+
+- **Read transaction details** — you can understand what a transaction actually did on SolScan.
+- **Evaluate security** — knowing how programs and accounts interact helps assess project risk.
+- **Understand errors** — common errors like "insufficient funds for rent" make more sense.
+- **Assess innovation** — you can better evaluate whether a project's technical claims are realistic.
+
+<Quiz
+  question="What is the key difference between Solana's account model and Ethereum's?"
+  options='["Solana does not use smart contracts", "On Solana, program code and data are stored separately", "Ethereum is faster than Solana", "Solana accounts cannot hold tokens"]'
+  correctIndex={1}
+  explanation="Solana separates program code (stateless, executable) from data (stored in accounts). This separation enables parallel processing and is a core reason for Solana's high throughput."
+/>

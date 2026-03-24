@@ -1,0 +1,19 @@
+---
+title: "Finality"
+description: "The point at which a blockchain transaction is considered irreversible and permanently recorded on the chain."
+category: "blockchain"
+order: 165
+related: ["block-time", "consensus-mechanism", "throughput"]
+---
+
+## Finality
+
+**Finality** refers to the guarantee that a blockchain transaction, once confirmed, cannot be reversed, altered, or canceled. It is the point at which a transaction is considered permanently settled.
+
+### How It Works
+
+Different blockchains achieve finality differently. Bitcoin uses probabilistic finality — transactions become increasingly secure with each subsequent block but are never 100% final. Solana achieves optimistic confirmation in about 400ms and full finality in a few seconds through its Tower BFT consensus, making transactions effectively irreversible almost instantly.
+
+### Why It Matters
+
+Finality is crucial for financial applications. Fast finality means DEX trades, payments, and token transfers are quickly settled and secure. Slow or uncertain finality can enable double-spending attacks and creates risk for merchants and DeFi protocols that need to trust transaction permanence.

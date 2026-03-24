@@ -1,0 +1,19 @@
+---
+title: "Versioned Transaction"
+description: "An upgraded Solana transaction format that supports address lookup tables, allowing more accounts per transaction."
+category: "solana"
+order: 75
+related: ["solana", "compute-units", "account-model"]
+---
+
+## Versioned Transaction
+
+**Versioned transactions** are an upgraded transaction format on Solana that introduces support for Address Lookup Tables (ALTs). This allows transactions to reference more accounts than the legacy format by using compact references instead of full 32-byte public keys.
+
+### How It Works
+
+Legacy Solana transactions are limited in size, which restricts the number of accounts they can reference. Versioned transactions use lookup tables — on-chain tables that store lists of account addresses. Instead of including full addresses, transactions reference positions in these tables, dramatically reducing transaction size and allowing more complex operations in a single transaction.
+
+### Why It Matters
+
+Many DeFi operations require interacting with numerous accounts simultaneously. Versioned transactions remove a major constraint by allowing more accounts per transaction, enabling complex DeFi composability and multi-hop swaps that would otherwise be impossible within a single transaction.

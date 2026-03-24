@@ -1,0 +1,19 @@
+---
+title: "Token Extensions（代币扩展）"
+description: "升级版 Solana 代币程序，为代币添加转账费用、机密转账和元数据等内置功能。"
+category: "solana"
+order: 62
+related: ["spl-token", "token", "solana"]
+---
+
+## Token Extensions（代币扩展）
+
+**Token Extensions**（也称为 Token-2022）是 Solana SPL Token 程序的升级版本，无需自定义智能合约即可为代币添加强大的内置功能。它支持转账费用、机密转账、计息代币等功能。
+
+### 工作原理
+
+Token Extensions 引入了可选的"扩展"，代币创建者可以在铸造代币时启用。这些扩展包括转账费用（在每次转账时自动收取百分比）、不可转让代币（灵魂绑定）、永久委托权限、使用零知识证明的机密转账，以及内置元数据存储。
+
+### 为什么重要
+
+以前，转账费用等功能需要自定义程序，增加了复杂性和安全风险。Token Extensions 在协议层面标准化了这些功能，使代币更强大的同时保持安全性。这使得新的商业模式和合规功能可以直接在代币本身中实现。

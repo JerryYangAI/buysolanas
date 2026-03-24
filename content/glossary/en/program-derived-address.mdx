@@ -1,0 +1,19 @@
+---
+title: "Program Derived Address (PDA)"
+description: "A special type of Solana account address that is deterministically derived from a program ID and seeds, with no private key."
+category: "solana"
+order: 70
+related: ["solana", "account-model", "anchor-framework"]
+---
+
+## Program Derived Address (PDA)
+
+A **Program Derived Address** (PDA) is a special account address on Solana that is generated deterministically from a program ID and a set of seeds. Unlike regular accounts, PDAs have no corresponding private key, meaning only the program that derived them can sign transactions on their behalf.
+
+### How It Works
+
+PDAs are created by hashing a program ID with user-defined seeds (like a user's public key or a string). The resulting address is guaranteed to not fall on the elliptic curve, ensuring no private key exists for it. This allows programs to "own" accounts and sign for them programmatically, enabling patterns like escrow accounts and protocol treasuries.
+
+### Why It Matters
+
+PDAs are fundamental to Solana program architecture. They enable programs to control accounts without needing an external signer, which is essential for building autonomous protocols. They also provide deterministic addressing, allowing anyone to derive the same account address given the same seeds.

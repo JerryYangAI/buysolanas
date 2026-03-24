@@ -1,0 +1,19 @@
+---
+title: "Sharding"
+description: "A scaling technique that splits a blockchain into parallel segments (shards) that process transactions simultaneously."
+category: "blockchain"
+order: 175
+related: ["throughput", "layer-2", "consensus-mechanism"]
+---
+
+## Sharding
+
+**Sharding** is a blockchain scaling technique that divides the network into smaller segments called shards, each capable of processing transactions independently and in parallel. This multiplies the network's total throughput.
+
+### How It Works
+
+In a sharded blockchain, the transaction workload is distributed across multiple shards, each with its own set of validators. Each shard processes a subset of transactions simultaneously, and cross-shard communication protocols handle transactions that span multiple shards. Ethereum's roadmap includes sharding as a major scaling solution.
+
+### Why It Matters
+
+Sharding is one approach to solving blockchain's scalability challenge. However, it adds complexity in cross-shard communication and security. Solana takes a different approach — rather than sharding, it achieves high throughput through parallel transaction processing within a single shard using its Sealevel runtime.

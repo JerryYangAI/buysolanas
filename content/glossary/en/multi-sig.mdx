@@ -1,0 +1,19 @@
+---
+title: "Multi-Sig"
+description: "A wallet requiring multiple private key signatures to authorize a transaction, enhancing security for shared funds."
+category: "security"
+order: 136
+related: ["wallet", "private-key", "dao"]
+---
+
+## Multi-Sig (Multi-Signature)
+
+A **multi-sig** wallet requires multiple private key holders to approve a transaction before it can be executed. For example, a 3-of-5 multi-sig requires any 3 out of 5 designated signers to authorize a transaction.
+
+### How It Works
+
+Multi-sig wallets are created with a defined set of authorized signers and a threshold number of required approvals. When someone initiates a transaction, it enters a pending state until enough signers approve it. On Solana, Squads Protocol is the leading multi-sig solution, used by DAOs, protocols, and teams to manage shared treasuries.
+
+### Why It Matters
+
+Multi-sig wallets eliminate single points of failure. If one key is compromised, the attacker still cannot move funds without additional signatures. They are essential for protocols managing large treasuries and for any organization where no single person should have unilateral control over assets.

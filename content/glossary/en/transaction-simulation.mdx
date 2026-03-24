@@ -1,0 +1,19 @@
+---
+title: "Transaction Simulation"
+description: "A security feature that previews a transaction's effects before signing, showing exactly what tokens will be sent and received."
+category: "security"
+order: 150
+related: ["wallet", "drainer", "approval-exploit"]
+---
+
+## Transaction Simulation
+
+**Transaction simulation** is a security feature in wallets that previews the effects of a transaction before you sign it. It shows exactly which tokens will leave your wallet, which will arrive, and what approvals will be granted.
+
+### How It Works
+
+When you initiate a transaction, the wallet simulates it against the current blockchain state without actually submitting it. The simulation reveals all token transfers, approval changes, and account modifications that would occur. If the simulation shows unexpected outflows or suspicious approvals, you can reject the transaction before signing.
+
+### Why It Matters
+
+Transaction simulation is one of the most effective defenses against drainer attacks and malicious contracts. By showing you exactly what a transaction will do, it prevents you from unknowingly signing away your assets. Always review simulation results carefully, and treat failed or unclear simulations as red flags.

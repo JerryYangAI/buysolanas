@@ -1,0 +1,19 @@
+---
+title: "Revoke Approval"
+description: "The action of removing previously granted token spending permissions from a smart contract to protect your assets."
+category: "security"
+order: 142
+related: ["unlimited-approval", "approval-exploit", "wallet"]
+---
+
+## Revoke Approval
+
+**Revoking an approval** means removing a previously granted permission that allows a smart contract to spend your tokens. This is a critical security practice for protecting assets from potential exploits.
+
+### How It Works
+
+Using tools like revoke.cash or wallet-integrated features, users can view all active token approvals for their wallet and selectively revoke them. Revoking sends a transaction that sets the approval amount to zero, preventing the contract from spending any more tokens. This costs a small transaction fee.
+
+### Why It Matters
+
+Old, forgotten approvals are a common attack vector. Revoking unnecessary approvals reduces your attack surface. It is recommended to revoke approvals after completing interactions with a protocol, especially for less-trusted or experimental projects, and to periodically audit all active approvals.

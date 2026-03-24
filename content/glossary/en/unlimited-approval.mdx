@@ -1,0 +1,19 @@
+---
+title: "Unlimited Approval"
+description: "A token permission that allows a smart contract to spend an unlimited amount of your tokens, posing a security risk if exploited."
+category: "security"
+order: 141
+related: ["approval-exploit", "revoke-approval", "defi"]
+---
+
+## Unlimited Approval
+
+An **unlimited approval** is a token spending permission that grants a smart contract the ability to spend an unlimited quantity of a specific token from your wallet. Many DeFi protocols request unlimited approvals by default for user convenience.
+
+### How It Works
+
+When you first interact with a DeFi protocol, it requests permission to spend your tokens. An unlimited approval means you only need to approve once, and the contract can access any amount of that token in perpetuity. While convenient, this means if the contract is compromised, attackers can drain all your approved tokens.
+
+### Why It Matters
+
+Unlimited approvals are a trade-off between convenience and security. Setting specific approval amounts for each transaction is safer but requires more approvals and gas fees. Users should regularly audit their approvals and revoke those for contracts they no longer use.

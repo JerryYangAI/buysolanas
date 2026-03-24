@@ -1,0 +1,19 @@
+---
+title: "Token Extensions"
+description: "An upgraded Solana token program that adds built-in features like transfer fees, confidential transfers, and metadata directly to tokens."
+category: "solana"
+order: 62
+related: ["spl-token", "token", "solana"]
+---
+
+## Token Extensions
+
+**Token Extensions** (also known as Token-2022) is an upgraded version of Solana's SPL Token program that adds powerful built-in features to tokens without requiring custom smart contracts. It enables transfer fees, confidential transfers, interest-bearing tokens, and more.
+
+### How It Works
+
+Token Extensions introduces optional "extensions" that token creators can enable when minting their token. These include transfer fees (automatically collecting a percentage on each transfer), non-transferable tokens (soulbound), permanent delegate authority, confidential transfers using zero-knowledge proofs, and built-in metadata storage.
+
+### Why It Matters
+
+Previously, features like transfer fees required custom programs, adding complexity and security risk. Token Extensions standardizes these capabilities at the protocol level, making tokens more powerful while maintaining security. This enables new business models and compliance features directly within the token itself.

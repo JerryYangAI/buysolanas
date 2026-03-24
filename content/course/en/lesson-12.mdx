@@ -1,0 +1,91 @@
+---
+title: "On-Chain Data Analysis Basics"
+description: "Learn to read blockchain transactions, analyze wallets, and use SolScan to make informed decisions with on-chain data."
+order: 12
+level: 2
+category: "intermediate"
+next: "lesson-13"
+---
+
+## On-Chain Data Analysis Basics
+
+One of the most powerful aspects of blockchain is transparency — every transaction is publicly recorded and verifiable. Learning to read on-chain data gives you an edge in understanding market activity, verifying projects, and tracking trends. SolScan is the primary block explorer for Solana.
+
+### What Is a Block Explorer?
+
+A block explorer is a website that lets you search and view all activity on a blockchain. For Solana, **SolScan** (solscan.io) is the most widely used explorer. You can look up:
+
+- **Transactions** — every transfer, swap, or contract interaction.
+- **Wallet addresses** — all tokens held and transaction history.
+- **Token information** — supply, holders, and transfer activity.
+- **Programs (smart contracts)** — which programs are being called.
+
+### Reading a Transaction
+
+When you look up a transaction on SolScan, you will see:
+
+- **Signature** — the unique identifier for the transaction (a long string of characters).
+- **Status** — success or failure.
+- **Block and timestamp** — when it was confirmed.
+- **Fee** — the network fee paid (usually 0.000005 SOL).
+- **Signer** — the wallet that initiated the transaction.
+- **Instructions** — the actions performed (transfer, swap, stake, etc.).
+
+Understanding instructions is key. A swap on Jupiter might show multiple instructions: a token transfer out, a program invocation, and a token transfer in. This multi-step process is normal.
+
+### Analyzing a Wallet
+
+Wallet analysis helps you understand what a particular address is doing. Useful scenarios include:
+
+- **Tracking whale activity** — large holders can move markets. Watching their trades can reveal trends.
+- **Verifying project teams** — check if team wallets are selling tokens they promised to hold.
+- **Due diligence** — before buying a new token, check the top holders and their activity.
+
+On SolScan, enter any wallet address to see:
+- Token balances and their current value.
+- Recent transaction history.
+- DeFi positions and staking activity.
+- NFT holdings.
+
+### Token Analysis
+
+When researching a token, check these data points on SolScan:
+
+| Data Point | What It Tells You |
+|-----------|-------------------|
+| Total supply | How many tokens exist |
+| Circulating supply | How many are actively tradable |
+| Top holders | Whether supply is concentrated |
+| Transfer count | Activity level and adoption |
+| Holder count | Breadth of distribution |
+
+**Red flag:** If the top 10 wallets hold more than 50% of supply (excluding known exchange and protocol wallets), the token is highly concentrated and risky.
+
+### Practical Exercises
+
+**Exercise 1: Look up your own wallet**
+Visit solscan.io and paste your wallet address. Review your transaction history and understand each entry.
+
+**Exercise 2: Analyze a token**
+Search for a token you are interested in. Check the holder distribution, recent transfers, and whether the top wallets are accumulating or selling.
+
+**Exercise 3: Track a transaction**
+After making a swap on Jupiter, copy the transaction signature and look it up on SolScan. Trace the full flow of tokens.
+
+### Beyond SolScan: Other Useful Tools
+
+- **Birdeye** — real-time charts, trading data, and wallet tracking.
+- **DEXScreener** — live price charts for tokens across DEXs.
+- **Step Finance** — portfolio dashboard showing all your Solana DeFi positions.
+- **Flipside Crypto** — advanced analytics and community-built dashboards.
+
+### Key Takeaway
+
+On-chain data does not lie. While social media hype and promises can be misleading, the blockchain records exactly what is happening. Learning to read this data is one of the most valuable skills you can develop as a crypto participant.
+
+<Quiz
+  question="What is a potential red flag when analyzing a token's holder distribution?"
+  options='["Many unique holders spread evenly", "Top 10 wallets hold over 50% of supply", "The token is listed on Jupiter", "Transaction fees are low"]'
+  correctIndex={1}
+  explanation="When a small number of wallets hold the majority of a token's supply, those holders can crash the price by selling. Broad distribution across many holders is generally healthier."
+/>

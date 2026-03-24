@@ -1,0 +1,19 @@
+---
+title: "Limit Order Trading"
+description: "A trading strategy using limit orders to buy below or sell above the current market price at specific price targets."
+category: "trading"
+order: 121
+related: ["limit-order", "market-order", "order-book"]
+---
+
+## Limit Order Trading
+
+**Limit order trading** is a strategy where traders place orders at specific prices rather than accepting the current market price. Buy limit orders are set below the market price, and sell limit orders are set above it.
+
+### How It Works
+
+A trader identifies target entry or exit prices and places limit orders accordingly. The orders sit on the order book (or are monitored by keeper bots in AMM-based systems) until the market price reaches the specified level. If the price never reaches the limit, the order remains unfilled. This gives traders precision but no guarantee of execution.
+
+### Why It Matters
+
+Limit order trading is essential for disciplined trading strategies. It prevents emotional decisions, ensures specific entry and exit points, and avoids the slippage common with market orders in low-liquidity conditions. On Solana, Jupiter's limit order feature makes this accessible to all DeFi users.

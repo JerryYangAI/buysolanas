@@ -1,0 +1,19 @@
+---
+title: "SPL Token"
+description: "The standard token program on Solana that defines how fungible and non-fungible tokens are created and managed."
+category: "web3"
+order: 181
+related: ["erc-20", "token-standard", "token-extensions"]
+---
+
+## SPL Token
+
+**SPL Token** is Solana's standard token program, equivalent to Ethereum's ERC-20. It defines how fungible tokens are created, transferred, and managed on the Solana blockchain, ensuring universal compatibility across the ecosystem.
+
+### How It Works
+
+The SPL Token program is a shared on-chain program that any developer can use to create tokens. Each token has a mint account (defining supply and decimals) and individual token accounts for each holder. The program handles all token operations: minting, transferring, burning, and delegation. The newer Token-2022 program extends this with additional features.
+
+### Why It Matters
+
+SPL Token is the foundation of Solana's token economy. Every fungible token on Solana — from SOL wrappers to stablecoins to meme coins — uses the SPL Token program. Understanding it helps users comprehend token account creation, rent exemption deposits, and how tokens flow through the Solana ecosystem.

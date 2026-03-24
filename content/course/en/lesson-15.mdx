@@ -1,0 +1,103 @@
+---
+title: "On-Chain Analysis with Helius API"
+description: "Learn to use the Helius API for advanced on-chain analysis — whale tracking, transaction parsing, and wallet behavior analysis on Solana."
+order: 15
+level: 3
+category: "advanced"
+next: "lesson-16"
+---
+
+## On-Chain Analysis with Helius API
+
+While block explorers like SolScan are great for manual lookups, programmatic access to on-chain data unlocks much deeper analysis. Helius is the leading RPC and data provider for Solana, offering APIs that make it easy to parse transactions, track wallets, and build custom analytics.
+
+### What Is Helius?
+
+Helius provides enhanced Solana RPC endpoints and specialized APIs that go beyond standard blockchain data. While the standard Solana RPC returns raw, difficult-to-parse data, Helius transforms it into human-readable formats.
+
+Key API categories:
+- **Enhanced Transactions API** — parsed transaction history with readable descriptions.
+- **Digital Asset Standard (DAS) API** — comprehensive NFT and token metadata.
+- **Webhooks** — real-time notifications when specific on-chain events occur.
+- **Photon RPC** — compressed NFT and token data access.
+
+### Getting Started
+
+1. Create a free account at **helius.dev**.
+2. Generate an API key from your dashboard.
+3. The free tier includes 100,000 credits per day — sufficient for learning and personal analysis.
+
+### Parsing Transactions
+
+The Enhanced Transactions API transforms raw transaction data into readable events. Instead of decoding binary instruction data, you get structured responses showing:
+
+- Transaction type (SWAP, TRANSFER, NFT_SALE, STAKE, etc.)
+- Human-readable description of what happened.
+- Token amounts, source and destination wallets.
+- Fee information.
+
+This is invaluable for understanding complex DeFi transactions that involve multiple program calls.
+
+### Whale Tracking
+
+Tracking large wallets ("whales") can reveal market trends before they are obvious. With Helius webhooks, you can:
+
+1. **Monitor specific wallets** — set up alerts when a known whale makes a transaction.
+2. **Track large transfers** — get notified when SOL or token transfers exceed a threshold.
+3. **Watch program interactions** — know when whales interact with specific DeFi protocols.
+
+**Practical approach to whale tracking:**
+- Identify whale wallets through SolScan's top holder lists.
+- Set up Helius webhooks for those addresses.
+- Analyze their transaction patterns — are they accumulating, distributing, or moving to DeFi?
+
+### Wallet Behavior Analysis
+
+Combining multiple API calls lets you build a profile of any wallet:
+
+- **Portfolio composition** — what tokens and NFTs does the wallet hold?
+- **Transaction frequency** — how active is this wallet?
+- **DeFi activity** — which protocols does the wallet use?
+- **Historical performance** — has this wallet been profitable?
+
+### Building Custom Dashboards
+
+With basic programming knowledge (JavaScript or Python), you can build custom analysis tools:
+
+**Example use cases:**
+- Track all swaps above $10,000 on Jupiter in real-time.
+- Monitor token holder count changes over time.
+- Alert when a specific NFT collection sees unusual buying activity.
+- Analyze the average hold time for a particular token.
+
+### Data Interpretation Tips
+
+Raw data is only valuable if you can interpret it correctly:
+
+- **Large transfers to exchanges** often signal intent to sell.
+- **Large withdrawals from exchanges** may indicate long-term holding.
+- **Sudden increases in unique holders** can signal growing organic adoption.
+- **Whale accumulation during price dips** is often considered a bullish signal.
+- **Always consider context** — a large transfer might be an internal wallet reorganization, not a market signal.
+
+### Rate Limits and Best Practices
+
+- Cache responses to avoid redundant API calls.
+- Use webhooks for real-time monitoring instead of constant polling.
+- Batch requests when analyzing multiple wallets.
+- Respect rate limits to avoid throttling.
+- Start with the free tier — upgrade only when your needs exceed it.
+
+### Ethical Considerations
+
+While blockchain data is public, use this information responsibly:
+- Do not harass or doxx wallet owners.
+- On-chain data shows what happened, not why — avoid jumping to conclusions.
+- Use analysis to inform your own decisions, not to manipulate others.
+
+<Quiz
+  question="What advantage does the Helius Enhanced Transactions API provide over standard Solana RPC?"
+  options='["It makes transactions free", "It returns parsed, human-readable transaction data instead of raw binary", "It speeds up transaction confirmation", "It hides transaction details for privacy"]'
+  correctIndex={1}
+  explanation="The Enhanced Transactions API transforms raw blockchain data into structured, human-readable formats, making it much easier to understand what happened in each transaction."
+/>

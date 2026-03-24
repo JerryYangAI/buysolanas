@@ -1,0 +1,19 @@
+---
+title: "Priority Fee"
+description: "An optional fee added to Solana transactions to incentivize validators to process them faster during network congestion."
+category: "solana"
+order: 74
+related: ["compute-units", "transaction-fee", "validator"]
+---
+
+## Priority Fee
+
+A **priority fee** is an optional additional fee that Solana users can attach to their transactions to get faster processing. It is calculated as a price per compute unit and added on top of the base transaction fee, incentivizing validators to prioritize the transaction.
+
+### How It Works
+
+When the network is congested, validators process transactions with higher priority fees first. Users specify a price in micro-lamports per compute unit. The total priority fee equals the price per CU multiplied by the compute units requested. Wallets and dApps typically estimate appropriate priority fees based on recent network conditions.
+
+### Why It Matters
+
+During high-demand periods like popular NFT mints or token launches, the base fee alone may not guarantee timely inclusion. Priority fees create a market-based mechanism for transaction ordering, helping users whose transactions are time-sensitive to get processed quickly while keeping base fees low for routine transactions.

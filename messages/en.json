@@ -14,6 +14,7 @@
     "prices": "Prices",
     "ask": "Ask",
     "community": "Community",
+    "rewards": "Rewards",
     "domains": "Domains"
   },
   "home": {
@@ -228,6 +229,46 @@
     "submitting": "Sending...",
     "successMessage": "Inquiry sent! We'll respond within 24 hours.",
     "errorMessage": "Something went wrong. Please try again."
+  },
+  "solDetail": {
+    "label": "SOL PRICE",
+    "title": "Solana (SOL) Price & Data",
+    "description": "Live SOL price, charts, market data, staking info, and ecosystem tokens."
+  },
+  "rewards": {
+    "label": "REWARDS",
+    "title": "Points & Rewards",
+    "description": "Learn, earn points, and redeem rewards. Complete courses and quizzes to unlock exclusive perks.",
+    "totalPoints": "Total Points",
+    "loginToTrack": "Login to track your points and progress",
+    "comingSoonAuth": "User accounts coming soon!",
+    "earnTitle": "How to Earn Points",
+    "earn_dailyLogin": "Daily login",
+    "earn_completeLesson": "Complete a lesson",
+    "earn_passQuiz": "Pass a quiz",
+    "earn_completeLevel": "Complete a level",
+    "earn_subscribe": "Subscribe to newsletter",
+    "earn_referFriend": "Refer a friend",
+    "redeemTitle": "Redeem Rewards",
+    "redeem_nftBadge": "Exclusive Learner NFT Badge",
+    "redeem_nftBadge_desc": "A unique on-chain badge proving your Solana knowledge.",
+    "redeem_stickerPack": "BuySolanas Sticker Pack",
+    "redeem_stickerPack_desc": "Physical sticker pack shipped to your address.",
+    "redeem_feeDiscount": "Exchange Fee Discount",
+    "redeem_feeDiscount_desc": "Trading fee discount coupon from our partner exchanges.",
+    "redeem_earlyAccess": "Early Access to Premium Content",
+    "redeem_earlyAccess_desc": "Get access to advanced courses before public release.",
+    "startEarning": "Start Earning Points →"
+  },
+  "discord": {
+    "title": "Join Our Discord Community",
+    "description": "Connect with thousands of Solana learners. Ask questions, share insights, and grow together.",
+    "feat1": "Beginner Q&A",
+    "feat2": "Daily Price Updates",
+    "feat3": "Weekly Learning Goals",
+    "feat4": "Market Analysis",
+    "joinButton": "Join Discord",
+    "memberCount": "1,000+ members and growing"
   },
   "newsletter": {
     "cardTitle": "Subscribe to Weekly Updates",

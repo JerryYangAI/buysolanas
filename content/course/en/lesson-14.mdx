@@ -1,0 +1,91 @@
+---
+title: "Advanced Staking: Choosing Validators"
+description: "Learn the advanced criteria for selecting optimal Solana validators — commission, performance metrics, decentralization, and stake distribution."
+order: 14
+level: 3
+category: "advanced"
+next: "lesson-15"
+---
+
+## Advanced Staking: Choosing Validators
+
+In the beginner staking lesson, we covered the basics of delegating SOL. Now we go deeper into validator selection — the decisions that can meaningfully impact your staking returns and the health of the Solana network.
+
+### Why Validator Choice Matters
+
+Not all validators are equal. A poorly chosen validator can result in:
+- **Lower rewards** — high commission or poor performance means you earn less.
+- **Missed epochs** — if a validator goes offline, you earn nothing during that period.
+- **Network centralization** — staking only with the largest validators harms decentralization.
+
+### Key Selection Criteria
+
+**1. Commission Rate**
+
+Commission is the percentage of staking rewards the validator keeps before distributing to delegators. Most validators charge between 0% and 10%.
+
+- 0% commission is not always best — validators need revenue to maintain hardware. A 0% rate may not be sustainable long-term.
+- 5-7% is a healthy range that balances delegator returns with validator sustainability.
+- Be wary of validators that frequently change their commission rate.
+
+**2. Uptime and Vote Success**
+
+Validators earn rewards by voting on blocks. Check these metrics:
+
+- **Vote success rate** — should be above 99%. Lower means the validator is missing votes and earning fewer rewards.
+- **Skip rate** — the percentage of assigned leader slots the validator misses. Lower is better; under 5% is good.
+- **Historical uptime** — has the validator been consistently online over the past months?
+
+**3. Stake Concentration**
+
+Solana's security improves when stake is distributed across many validators. Consider:
+
+- **Superminority** — the smallest set of validators that collectively hold 33% of stake. Staking with validators outside the superminority improves decentralization.
+- **Nakamoto Coefficient** — the number of validators that would need to collude to attack the network. Higher is better for security.
+- Platforms like StakeWiz and Validators.app show which validators are in the superminority.
+
+**4. Data Center Diversity**
+
+If too many validators run in the same data center, a single outage could affect the network. Choose validators that operate in diverse geographic locations and data centers.
+
+**5. Validator Identity and Reputation**
+
+- Is the validator team publicly known?
+- Do they have a website and active communication channels?
+- Are they active in the Solana community?
+- Do they contribute to ecosystem tools or governance?
+
+### Tools for Validator Research
+
+| Tool | What It Shows |
+|------|--------------|
+| StakeWiz (stakewiz.com) | Comprehensive validator metrics, APY estimates, recommendations |
+| Validators.app | Performance data, data center info, stake history |
+| SolanaBeach | Network overview, validator list, epoch information |
+| Solana CLI | Direct on-chain data for technical users |
+
+### Building a Staking Strategy
+
+**Diversify across validators:** Instead of staking all SOL with one validator, split your stake across 3-5 validators. This reduces risk from any single validator going offline or raising commission.
+
+**Prioritize the long tail:** Staking with smaller, quality validators outside the superminority earns similar rewards while strengthening the network.
+
+**Monitor regularly:** Check your validators monthly. Look for changes in commission, declining performance, or extended downtime.
+
+**Consider stake pools:** Protocols like Marinade Finance automatically distribute stake across hundreds of validators using an algorithm that optimizes for performance and decentralization.
+
+### The Validator Economics
+
+Validators incur costs:
+- **Hardware** — high-performance servers cost $500-$2,000+ per month.
+- **Bandwidth** — Solana requires significant data throughput.
+- **Voting costs** — validators pay transaction fees to submit votes (approximately 1 SOL per day).
+
+Understanding these costs helps you appreciate why sustainable commission rates matter. A validator running at 0% commission may eventually shut down, forcing you to redelegate.
+
+<Quiz
+  question="Why should you consider staking with validators outside the superminority?"
+  options='["They always offer 0% commission", "It improves network decentralization and security", "They process transactions faster", "They are required by Solana's rules"]'
+  correctIndex={1}
+  explanation="Staking with validators outside the superminority distributes stake more broadly across the network, making Solana more decentralized and resistant to attacks."
+/>
