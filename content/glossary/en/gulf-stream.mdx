@@ -1,0 +1,19 @@
+---
+title: "Gulf Stream"
+description: "Solana's mempool-less transaction forwarding protocol that pushes transactions to validators before the current block is finalized."
+category: "solana"
+order: 5
+related: ["solana", "turbine", "proof-of-history"]
+---
+
+## Gulf Stream
+
+**Gulf Stream** is Solana's transaction forwarding protocol that eliminates the need for a traditional mempool. In most blockchains, unconfirmed transactions sit in a waiting area (mempool) until a miner or validator picks them up. Gulf Stream skips this step entirely.
+
+### How It Works
+
+Gulf Stream forwards transactions to the expected next leader (block producer) before the current block is even finished. Since Solana's leader schedule is known in advance thanks to Proof of History, clients and validators can send transactions directly to the upcoming leader, reducing confirmation times and memory requirements.
+
+### Why It Matters
+
+The mempool is a major bottleneck in traditional blockchains — it consumes memory, creates delays, and opens up opportunities for front-running attacks. By eliminating the mempool, Gulf Stream helps Solana achieve faster finality, lower resource usage, and a more predictable transaction flow.

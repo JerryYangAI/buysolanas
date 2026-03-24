@@ -1,0 +1,19 @@
+---
+title: "Sealevel"
+description: "Solana's parallel smart contract runtime that allows thousands of contracts to execute simultaneously."
+category: "solana"
+order: 3
+related: ["solana", "proof-of-history", "turbine"]
+---
+
+## Sealevel
+
+**Sealevel** is Solana's parallel processing engine for smart contracts. Unlike Ethereum's single-threaded execution model where transactions run one at a time, Sealevel enables multiple smart contracts to execute simultaneously across the network's available hardware.
+
+### How It Works
+
+Sealevel analyzes all pending transactions and identifies which ones can safely run in parallel — specifically, transactions that don't read or write to the same account state. These independent transactions are then spread across multiple CPU cores and GPU threads, dramatically increasing throughput.
+
+### Why It Matters
+
+Parallel execution is one of the key reasons Solana achieves such high transaction speeds. Most blockchains process transactions sequentially, creating a bottleneck. Sealevel breaks through this limitation by leveraging modern multi-core hardware, allowing the network to scale its performance as hardware improves over time.

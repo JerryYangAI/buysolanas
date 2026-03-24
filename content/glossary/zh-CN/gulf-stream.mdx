@@ -1,0 +1,19 @@
+---
+title: "Gulf Stream"
+description: "Solana 的无内存池交易转发协议，在当前区块完成之前将交易推送给验证者。"
+category: "solana"
+order: 5
+related: ["solana", "turbine", "proof-of-history"]
+---
+
+## Gulf Stream
+
+**Gulf Stream** 是 Solana 的交易转发协议，消除了对传统内存池（mempool）的需求。在大多数区块链中，未确认的交易会停留在等待区域（内存池）中，直到矿工或验证者处理它们。Gulf Stream 完全跳过了这一步。
+
+### 工作原理
+
+Gulf Stream 在当前区块完成之前，就将交易转发给预期的下一个领导者（出块者）。由于 Solana 的领导者时间表通过历史证明提前确定，客户端和验证者可以直接将交易发送给即将到来的领导者，从而减少确认时间和内存需求。
+
+### 为什么重要
+
+内存池是传统区块链的主要瓶颈——它消耗内存、造成延迟，并为抢先交易攻击创造机会。通过消除内存池，Gulf Stream 帮助 Solana 实现更快的最终确认、更低的资源使用和更可预测的交易流程。

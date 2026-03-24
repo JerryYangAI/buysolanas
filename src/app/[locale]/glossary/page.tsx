@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { getAllContentMeta } from '@/lib/mdx';
-import { Link } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
-import { BookMarked } from 'lucide-react';
+import GlossaryClient from './GlossaryClient';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://buysolanas.com';
 
@@ -36,42 +35,37 @@ export default async function GlossaryPage({ params }: Props) {
   const t = await getTranslations('glossary');
   const terms = getAllContentMeta('glossary', locale);
 
+  // Extract all unique categories
+  const categories = Array.from(
+    new Set(terms.map((t) => t.category).filter(Boolean))
+  ).sort() as string[];
+
+  // Extract first letters for A-Z nav
+  const letters = Array.from(
+    new Set(terms.map((t) => t.title[0].toUpperCase()))
+  ).sort();
+
   return (
     <div className="container-custom py-12 md:py-16">
       <div className="mb-10">
-        <h1 className="mb-3 text-3xl font-bold tracking-tight gradient-text sm:text-4xl">
+        <p className="mb-3 text-xs font-medium uppercase tracking-[0.1em] text-sol-purple">{t('label')}</p>
+        <h1 className="mb-3 text-3xl font-bold tracking-tight gradient-text-subtle sm:text-4xl">
           {t('title')}
         </h1>
         <p className="text-foreground-secondary">{t('description')}</p>
       </div>
 
-      <div className="grid gap-4 max-w-2xl">
-        {terms.map((term) => (
-          <Link
-            key={term.slug}
-            href={`/glossary/${term.slug}`}
-            className="group flex items-start gap-4 glass-card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.06] hover:border-white/[0.12] hover:shadow-lg hover:shadow-black/20"
-          >
-            <BookMarked
-              size={18}
-              className="mt-0.5 shrink-0 text-foreground-tertiary transition-colors group-hover:text-accent-blue"
-            />
-            <div>
-              <h2 className="mb-1 font-medium transition-colors group-hover:text-white">
-                {term.title}
-              </h2>
-              <p className="text-sm text-foreground-secondary">
-                {term.description}
-              </p>
-              {term.category && (
-                <span className="mt-2 inline-block rounded-md bg-accent-blue/10 px-2 py-0.5 text-xs text-accent-blue border border-accent-blue/20">
-                  {term.category}
-                </span>
-              )}
-            </div>
-          </Link>
-        ))}
-      </div>
+      <GlossaryClient
+        terms={terms}
+        categories={categories}
+        letters={letters}
+        translations={{
+          searchPlaceholder: t('searchPlaceholder'),
+          allCategories: t('allCategories'),
+          noResults: t('noResults'),
+          solanaTag: t('solanaTag'),
+        }}
+      />
     </div>
   );
 }

@@ -1,0 +1,19 @@
+---
+title: "Sealevel"
+description: "Solana 的并行智能合约运行时，允许数千个合约同时执行。"
+category: "solana"
+order: 3
+related: ["solana", "proof-of-history", "turbine"]
+---
+
+## Sealevel
+
+**Sealevel** 是 Solana 的智能合约并行处理引擎。与以太坊的单线程执行模型（交易逐一运行）不同，Sealevel 允许多个智能合约在网络可用硬件上同时执行。
+
+### 工作原理
+
+Sealevel 分析所有待处理交易，识别哪些交易可以安全地并行运行——具体来说，就是那些不读写相同账户状态的交易。然后将这些独立的交易分配到多个 CPU 核心和 GPU 线程上，从而大幅提高吞吐量。
+
+### 为什么重要
+
+并行执行是 Solana 实现高交易速度的关键原因之一。大多数区块链按顺序处理交易，形成瓶颈。Sealevel 通过利用现代多核硬件突破了这一限制，使网络性能能够随着硬件改进而不断扩展。

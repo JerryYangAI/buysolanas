@@ -1,0 +1,19 @@
+---
+title: "Tower BFT"
+description: "Solana's custom consensus algorithm that uses Proof of History as a clock to reduce communication overhead."
+category: "solana"
+order: 6
+related: ["solana", "proof-of-history", "validator"]
+---
+
+## Tower BFT
+
+**Tower BFT** is Solana's optimized version of Practical Byzantine Fault Tolerance (PBFT), a consensus mechanism that allows the network to reach agreement even when some validators are malicious or offline. It leverages Proof of History as a reliable clock source to dramatically reduce the messaging overhead typically required by BFT algorithms.
+
+### How It Works
+
+In traditional BFT systems, validators must exchange many messages to agree on the state of the network. Tower BFT reduces this by using PoH timestamps as a shared reference. Validators vote on the state of the ledger, and each vote has an increasing timeout — the longer a validator sticks with a fork, the harder it becomes to switch. This creates an exponential lockout mechanism that naturally converges on a single chain.
+
+### Why It Matters
+
+Tower BFT gives Solana both speed and security. It ensures that the network can finalize transactions quickly while remaining resilient against attacks. The combination of PoH-based timing and exponential lockouts means Solana can achieve consensus with far fewer messages than traditional BFT protocols, contributing to its high throughput.

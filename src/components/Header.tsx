@@ -24,48 +24,54 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--color-glass-border)] bg-background/60 shadow-[0_1px_30px_rgba(0,0,0,0.3)] backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-[var(--color-glass-border)] bg-[rgba(10,10,15,0.85)] shadow-[0_1px_30px_rgba(0,0,0,0.3)] backdrop-blur-xl">
       <div className="container-custom">
-        <div className="flex h-20 items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="group text-2xl font-bold tracking-tight">
-            <span className="bg-gradient-to-r from-white to-foreground-secondary bg-clip-text transition-all duration-300 group-hover:to-accent-blue group-hover:text-transparent" style={{ WebkitBackgroundClip: 'text' }}>
-              Buysolanas
-            </span>
+        <div className="flex h-[60px] items-center justify-between">
+          {/* Logo — Solana gradient */}
+          <Link href="/" className="gradient-text text-lg font-bold tracking-tight" style={{ letterSpacing: '-0.5px' }}>
+            BuySolanas
           </Link>
 
           {/* Desktop navigation */}
-          <nav className="hidden items-center gap-8 md:flex">
+          <nav className="hidden items-center gap-7 md:flex">
             {navItems.map((item) => (
               <Link
                 key={item.key}
                 href={item.href}
-                className={`relative py-1 text-sm font-medium transition-colors ${
+                className={`relative py-1 text-sm transition-colors ${
                   pathname === item.href
-                    ? 'text-foreground'
+                    ? 'font-medium text-foreground'
                     : 'text-foreground-secondary hover:text-foreground'
                 }`}
               >
                 {t(item.key)}
                 {pathname === item.href && (
-                  <span className="absolute -bottom-[1.35rem] left-0 right-0 h-[2px] bg-gradient-to-r from-accent-blue to-accent-purple" />
+                  <span className="absolute -bottom-[1.1rem] left-0 right-0 h-[2px] bg-gradient-to-r from-sol-purple to-sol-green" />
                 )}
               </Link>
             ))}
           </nav>
 
           <div className="flex items-center gap-3">
+            {/* CTA Button */}
+            <Link
+              href="/start"
+              className="hidden rounded-lg bg-sol-purple px-4 py-2 text-[13px] font-medium text-white transition-opacity hover:opacity-85 sm:inline-block"
+            >
+              {t('start')}
+            </Link>
+
             {/* Language switcher */}
-            <div className="flex items-center gap-1 rounded-lg border border-[var(--color-glass-border)] bg-[var(--color-glass)] p-1">
+            <div className="flex items-center gap-1">
               {routing.locales.map((locale) => (
                 <Link
                   key={locale}
                   href={pathname || '/'}
                   locale={locale}
-                  className={`rounded-md px-2.5 py-1 text-xs font-medium transition-all duration-200 ${
+                  className={`rounded px-2.5 py-1 text-xs transition-all duration-200 ${
                     locale === currentLocale
-                      ? 'bg-accent-blue/20 text-accent-blue'
-                      : 'text-foreground-tertiary hover:text-foreground-secondary'
+                      ? 'border border-sol-purple/40 text-sol-purple'
+                      : 'border border-transparent text-foreground-tertiary hover:text-foreground-secondary'
                   }`}
                 >
                   {locale === 'en' ? 'EN' : '中文'}
@@ -92,9 +98,9 @@ export default function Header() {
                 key={item.key}
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
-                className={`block py-3 text-base font-medium transition-colors ${
+                className={`block py-3 text-sm font-medium transition-colors ${
                   pathname === item.href
-                    ? 'text-accent-blue'
+                    ? 'text-sol-purple'
                     : 'text-foreground-secondary hover:text-foreground'
                 }`}
               >

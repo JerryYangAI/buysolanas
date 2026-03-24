@@ -1,0 +1,19 @@
+---
+title: "Impermanent Loss"
+description: "The temporary loss of value that liquidity providers experience when the price ratio of their deposited tokens changes."
+category: "defi"
+order: 23
+related: ["liquidity-pool", "amm", "yield-farming", "dex"]
+---
+
+## Impermanent Loss
+
+**Impermanent loss** is the difference in value between holding tokens in a liquidity pool versus simply holding them in your wallet. It occurs when the price ratio of the two tokens in a pool changes from the time you deposited them. The larger the price change, the greater the impermanent loss.
+
+### How It Works
+
+Suppose you deposit equal values of SOL and USDC into a liquidity pool. If SOL's price doubles, arbitrage traders will rebalance the pool, and you will end up with less SOL and more USDC than you started with. If you withdrew at this point, your total value would be less than if you had simply held the original tokens. The loss is called "impermanent" because if prices return to their original ratio, the loss disappears.
+
+### Why It Matters
+
+Impermanent loss is the primary risk for liquidity providers in DeFi. Before providing liquidity, you should consider whether the trading fees and rewards you earn will offset the potential impermanent loss. Pairs with stablecoins or highly correlated assets tend to have lower impermanent loss. Understanding this concept is crucial before committing funds to any liquidity pool on Solana or elsewhere.

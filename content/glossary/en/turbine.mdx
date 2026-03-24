@@ -1,0 +1,19 @@
+---
+title: "Turbine"
+description: "Solana's block propagation protocol that breaks data into smaller packets for efficient distribution across the network."
+category: "solana"
+order: 4
+related: ["solana", "validator", "gulf-stream"]
+---
+
+## Turbine
+
+**Turbine** is Solana's block propagation protocol, inspired by BitTorrent's data distribution model. It solves the problem of transmitting large amounts of data across a decentralized network quickly and efficiently.
+
+### How It Works
+
+Instead of sending an entire block of data to every validator, Turbine breaks blocks into smaller packets called "shreds." These shreds are distributed through a tree-like network of validators, where each node only needs to pass data to a small number of peers. This fan-out approach means data reaches all validators exponentially faster than traditional broadcasting.
+
+### Why It Matters
+
+As blockchains process more transactions, the blocks that contain them grow larger. Without an efficient way to share these blocks, the network would slow down or require validators to have extremely fast internet connections. Turbine ensures that even as Solana's throughput grows, block data can be distributed quickly without creating centralization pressure.

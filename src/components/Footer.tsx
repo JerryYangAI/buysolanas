@@ -1,22 +1,80 @@
 import { useTranslations } from 'next-intl';
+import { ALL_DOMAINS } from '@/lib/domain-config';
 
 export default function Footer() {
   const t = useTranslations('footer');
 
   return (
-    <footer className="mt-auto">
-      {/* Gradient divider */}
-      <div className="h-px bg-gradient-to-r from-transparent via-accent-blue/20 to-transparent" />
-      <div className="border-t border-[var(--color-glass-border)]">
-        <div className="container-custom py-8">
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-semibold text-foreground-secondary">Buysolanas</span>
-              <span className="text-xs text-foreground-tertiary">{t('copyright')}</span>
-            </div>
-            <p className="text-center text-xs text-foreground-tertiary md:text-right">
-              {t('disclaimer')}
+    <footer className="border-t border-[var(--color-glass-border)] bg-background-secondary">
+      <div className="container-custom py-12">
+        {/* Multi-column grid */}
+        <div className="mb-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Brand */}
+          <div>
+            <p className="mb-3 gradient-text text-xl font-bold">BuySolanas</p>
+            <p className="text-[13px] leading-relaxed text-foreground-secondary">
+              {t('brandDesc')}
             </p>
+          </div>
+
+          {/* Learn */}
+          <div>
+            <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.08em] text-foreground-secondary">{t('colLearn')}</h4>
+            <ul className="space-y-2.5">
+              {['start', 'course', 'glossary'].map((k) => (
+                <li key={k}>
+                  <a href={`/en/${k}`} className="text-[13px] text-foreground-secondary transition-colors hover:text-foreground">
+                    {t(`link_${k}`)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Ecosystem */}
+          <div>
+            <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.08em] text-foreground-secondary">{t('colEco')}</h4>
+            <ul className="space-y-2.5">
+              {['prices', 'community', 'domains'].map((k) => (
+                <li key={k}>
+                  <a href={`/en/${k}`} className="text-[13px] text-foreground-secondary transition-colors hover:text-foreground">
+                    {t(`link_${k}`)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* About */}
+          <div>
+            <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.08em] text-foreground-secondary">{t('colAbout')}</h4>
+            <ul className="space-y-2.5">
+              <li><span className="text-[13px] text-foreground-secondary">{t('linkDisclaimer')}</span></li>
+              <li><span className="text-[13px] text-foreground-secondary">{t('linkPrivacy')}</span></li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Domain cluster links */}
+        <div className="mb-6 flex flex-wrap justify-center gap-3">
+          {ALL_DOMAINS.map((d) => (
+            <a
+              key={d.domain}
+              href={`https://${d.domain}`}
+              className="text-xs text-foreground-tertiary transition-colors hover:text-foreground-secondary"
+              target="_blank"
+              rel="noopener"
+            >
+              {d.domain}
+            </a>
+          ))}
+        </div>
+
+        {/* Bottom bar */}
+        <div className="border-t border-[var(--color-glass-border)] pt-6">
+          <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
+            <p className="text-xs text-foreground-tertiary">{t('copyright')}</p>
+            <p className="text-xs text-foreground-tertiary">{t('disclaimer')}</p>
           </div>
         </div>
       </div>

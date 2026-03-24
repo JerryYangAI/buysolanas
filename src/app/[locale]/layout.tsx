@@ -2,12 +2,14 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { Inter } from 'next/font/google';
+import { Inter, Space_Grotesk } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ChatWidgetLoader from '@/components/ChatWidgetLoader';
+import TickerBar from '@/components/TickerBar';
+import { getCurrentDomain, MAIN_DOMAIN } from '@/lib/domain-config';
 import '../globals.css';
 
 const inter = Inter({
@@ -16,19 +18,25 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-space-grotesk',
+});
+
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://buysolanas.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    template: '%s | Buysolanas',
-    default: 'Buysolanas - Learn Solana, safely.',
+    template: '%s | BuySolanas',
+    default: 'BuySolanas — 从零到 Solana，你的 Web3 第一站',
   },
   description:
-    'A beginner-friendly community to understand Solana. Learn safely with courses, glossary, and real-time market data.',
+    '中文 Solana 教育与信息平台。课程、词汇表、实时行情、社区，一站搞定。',
   openGraph: {
     type: 'website',
-    siteName: 'Buysolanas',
+    siteName: 'BuySolanas',
     locale: 'en',
     alternateLocale: ['zh-CN'],
   },
@@ -58,17 +66,20 @@ export default async function LocaleLayout({ children, params }: Props) {
   }
 
   const messages = await getMessages();
+  const isSatellite = getCurrentDomain() !== MAIN_DOMAIN;
 
   return (
-    <html lang={locale} className={inter.variable}>
+    <html lang={locale} className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <body className="min-h-screen bg-background text-foreground antialiased">
         <NextIntlClientProvider messages={messages}>
           <div className="flex min-h-screen flex-col">
-            <Header />
+            {/* Satellite domains render their own header inside page.tsx */}
+            {!isSatellite && <Header />}
+            {!isSatellite && <TickerBar />}
             <main className="flex-1">{children}</main>
-            <Footer />
+            {!isSatellite && <Footer />}
           </div>
-          <ChatWidgetLoader />
+          {!isSatellite && <ChatWidgetLoader />}
         </NextIntlClientProvider>
       </body>
     </html>

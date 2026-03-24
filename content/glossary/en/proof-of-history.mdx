@@ -1,0 +1,19 @@
+---
+title: "Proof of History"
+description: "A cryptographic clock mechanism unique to Solana that timestamps transactions before they enter the consensus process."
+category: "solana"
+order: 2
+related: ["solana", "validator", "tower-bft"]
+---
+
+## Proof of History (PoH)
+
+**Proof of History** is a novel consensus innovation developed by Solana founder Anatoly Yakovenko. It acts as a cryptographic clock that creates a verifiable sequence of events over time, allowing the network to agree on the order and timing of transactions without validators needing to communicate with each other constantly.
+
+### How It Works
+
+PoH uses a sequential hashing function (SHA-256) that runs continuously, producing a verifiable chain of outputs. Each output depends on the previous one, creating an unbreakable timeline. When a transaction is inserted into this sequence, everyone can verify exactly when it happened relative to other events.
+
+### Why It Matters
+
+Traditional blockchains like Bitcoin and Ethereum spend significant time getting validators to agree on what happened and when. PoH eliminates this bottleneck by pre-ordering transactions before consensus begins. This is a key reason why Solana can process thousands of transactions per second while maintaining security and decentralization.
